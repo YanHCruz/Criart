@@ -1,0 +1,171 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif; /* Fonte padrão */
+}
+
+body {
+    background-color: #BDE0FE; /* Fundo azul claro */
+    overflow-x: hidden;
+}
+
+/* --- HEADER --- */
+header {
+    display: flex; /* Alinha Logo, Nav e Busca na mesma linha */
+    justify-content: space-between; /* Espalha eles */
+    align-items: center;
+    padding: 20px 50px;
+}
+
+/* Texto do header */
+nav ul {
+    list-style: none;  
+    display: flex;     
+    gap: 30px;         
+    align-items: center;
+}
+
+nav ul li a {
+    text-decoration: none; 
+    color: #333;          
+    font-size: 18px;
+    font-weight: 500;
+    position: relative;    
+    padding-bottom: 5px;
+}
+
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0%;            
+    height: 2px;         
+    bottom: 0;
+    left: 50%;           
+    background-color: #78c1fd;
+    transition: all 0.3s ease-in-out; 
+    transform: translateX(-50%); 
+}
+
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* Barra de pesquisa arredondada */
+.header-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-bar {
+    background: white;
+    border-radius: 100px;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    border: none;
+}
+
+.search-bar input {
+    border: none;
+    background: transparent; /* Mudado de forma recente para teste */
+    outline: none;
+    margin-left: 10px;
+}
+
+.profile-icon svg {
+    cursor: pointer;
+    background-color: white;
+    border-radius: 200px;
+}
+
+/* -Hero Section */
+.hero-section {
+    position: relative;
+    min-height: 85vh; /* Altura da tela */
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+/* Container que segura o texto e a imagem lado a lado */
+.container-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1100px; /* Limita a largura para não esticar demais */
+    padding: 0 20px;
+    z-index: 10; /* Fica na frente da onda */
+}
+
+/* Estilo do Texto */
+.hero-text {
+    max-width: 450px; /* Impede que o texto fique muito largo */
+}
+
+.hero-text h1 {
+    font-family: serif; /* Fonte serifada para o título */
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #111;
+}
+
+/* Cores das letras do título */
+.c-blue { color: #67abc6; font-family: 'IM FELL Great Primer SC'; }
+.c-orange { color: #FFA500; font-family: 'IM FELL Great Primer SC'; }
+.c-gray { color: #A9A9A9; font-family: 'IM FELL Great Primer SC'; }
+.c-yellow { color: #FFD700; font-family: 'IM FELL Great Primer SC'; }
+.c-green { color: #32CD32; font-family: 'IM FELL Great Primer SC'; }
+.c-dblue { color: #4682B4; font-family: 'IM FELL Great Primer SC'; }
+
+.hero-text p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+/* Botão */
+.btn-ver {
+    display: block;
+    margin: 20px auto;
+    background: transparent;
+    border:none;
+    color: #111;
+    padding: 10px 40px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background-color: rgba(135, 206, 235, 0.5); /* Leve azul no fundo */
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-ver:hover { 
+    background-color: #60b3d3; 
+    color: rgb(255, 255, 255);
+    box-shadow: 5px 5px 15px #326b82; 
+    border-color: #60b3d3; 
+    transform: scale(1.05); 
+}
+
+/* Imagem das crianças */
+.hero-image img {
+    max-width: 1100px; /* Ajuste o tamanho da imagem */
+    width: 100%;
+    height: auto;
+}
+
+/* Wave */
+.wave-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    line-height: 0;
+}
