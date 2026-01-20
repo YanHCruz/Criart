@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
-<title>Criart</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+          
+  <title>Criart</title>
 </head>
 <body>
 
@@ -23,15 +25,21 @@
   </nav>
 
   <div class="header-container">
-    <div class="search-bar">
-      <svg class="icon-search" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"></circle>
-       <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
-      <input type="text" placeholder="Pesquisar">
-    </div>
+   <form class="form">
+      <button>
+          <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="search">
+              <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9" stroke="currentColor" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+      </button>
+      <input class="input" placeholder="Type your text" required="" type="text">
+      <button class="reset" type="reset">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+      </button>
+  </form>
 
-    <div class="profile-icon">
+    <div class="profile-icon" onclick="abrirModal()">
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"></circle>
           <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"></path>
@@ -51,7 +59,7 @@
         <p>Somos um espaço de arte, jogos e eventos dedicado a fazer a infância mais feliz e colorida.
           Conheça nossos projetos e junte-se a nós!
         </p>
-        <button class="btn-ver">Ver mais</button>
+        <button href='#' class="btn-ver">Ver mais</button>
       </div>
       
       <div class="hero-image">
@@ -68,5 +76,38 @@
 </section>
 
 </body>
+<div id="loginModal" class="modal-overlay">
+    
+    <div class="modal-content">
+        <span class="close-btn" onclick="fecharModal()">&times;</span>
+
+        <h2 class="modal-title">Bem-vindo!</h2>
+        <p class="modal-subtitle">Faça login para continuar</p>
+
+        <form class="login-form">
+            <div class="input-group">
+                <input type="email" placeholder="Seu e-mail" required>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" placeholder="Sua senha" required>
+            </div>
+
+            <a href="#" class="forgot-pass">Esqueceu a senha?</a>
+
+            <button type="submit" class="btn-login">Entrar</button>
+        </form>
+
+        <p class="switch-form">
+            Não tem conta? <a href="#">Cadastre-se</a>
+        </p>
+
+        <div class="social-login">
+        <p>Ou continue com</p>
+        <div id="botao-google" class="social-icons" style="justify-content: center;"></div>
+        </div>
+        </div>
+    </div>
+</div>
 <script src="../js/javascript.js"></script>
 </html>
