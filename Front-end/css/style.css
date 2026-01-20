@@ -230,12 +230,65 @@ input:not(:placeholder-shown) ~ .reset {
 }
 
 /* Wave */
+/* --- WAVE ANIMADA --- */
 .wave-container {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
+    overflow: hidden; /* Garante que não apareça barra de rolagem horizontal */
     line-height: 0;
+    z-index: 1; /* Fica atrás do conteúdo principal se precisar */
+}
+
+.waves {
+    position: relative;
+    width: 100%;
+    height: 15vh; /* Altura da onda (ajuste se quiser maior/menor) */
+    margin-bottom: -7px; /* Corrige pequenos espaços em alguns navegadores */
+    min-height: 100px;
+    max-height: 150px;
+}
+
+/* A Animação principal */
+.parallax > use {
+    animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+
+/* Velocidades diferentes para cada camada da onda (Parallax) */
+.parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s; /* Onda mais rápida e transparente atrás */
+}
+.parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s; /* Onda branca principal (mais lenta) na frente */
+}
+
+/* O movimento de vai-e-vem */
+@keyframes move-forever {
+    0% {
+     transform: translate3d(-90px,0,0);
+    }
+    100% { 
+      transform: translate3d(85px,0,0);
+    }
+}
+
+/* Ajuste para celulares (a onda fica um pouco mais alta) */
+@media (max-width: 768px) {
+    .waves {
+        height: 40px;
+        min-height: 40px;
+    }
 }
 
 /* --- MODAL (Fundo escuro) --- */
