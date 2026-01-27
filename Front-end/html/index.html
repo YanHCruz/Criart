@@ -92,32 +92,59 @@
     <div class="modal-content">
         <span class="close-btn" onclick="fecharModal()">&times;</span>
 
-        <h2 class="modal-title">Bem-vindo!</h2>
-        <p class="modal-subtitle">Faça login para continuar</p>
+        <div id="boxLogin" class="form-section">
+            <h2 class="modal-title">Bem-vindo!</h2>
+            <p class="modal-subtitle">Faça login para continuar</p>
 
-        <form class="login-form">
-            <div class="input-group">
-                <input type="email" placeholder="Seu e-mail" required>
+            <form class="login-form">
+                <div class="input-group">
+                    <input type="email" placeholder="Seu e-mail" required>
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" placeholder="Sua senha" required>
+                </div>
+
+                <a href="#" class="forgot-pass">Esqueceu a senha?</a>
+
+                <button type="submit" class="btn-login">Entrar</button>
+            </form>
+
+            <p class="switch-form">
+                Não tem conta? <a href="#" onclick="alternarParaCadastro(event)">Cadastre-se</a>
+            </p>
+
+            <div class="social-login">
+                <p>Ou continue com</p>
+                <div id="botao-google" class="social-icons" style="justify-content: center;"></div>
             </div>
-            
-            <div class="input-group">
-                <input type="password" placeholder="Sua senha" required>
-            </div>
-
-            <a href="#" class="forgot-pass">Esqueceu a senha?</a>
-
-            <button type="submit" class="btn-login">Entrar</button>
-        </form>
-
-        <p class="switch-form">
-            Não tem conta? <a href="#">Cadastre-se</a>
-        </p>
-
-        <div class="social-login">
-        <p>Ou continue com</p>
-        <div id="botao-google" class="social-icons" style="justify-content: center;"></div>
         </div>
+
+        <div id="boxCadastro" class="form-section hidden">
+            <h2 class="modal-title">Criar Conta</h2>
+            <p class="modal-subtitle">Junte-se à diversão!</p>
+
+            <form class="login-form">
+                <div class="input-group">
+                    <input type="text" placeholder="Nome completo" required>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" placeholder="Seu e-mail" required>
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" placeholder="Crie uma senha" required>
+                </div>
+
+                <button type="submit" class="btn-login" style="background-color: #FFA500;">Cadastrar</button>
+            </form>
+
+            <p class="switch-form">
+                Já tem conta? <a href="#" onclick="alternarParaLogin(event)">Fazer Login</a>
+            </p>
         </div>
+
     </div>
 </div>
 <script src="../js/javascript.js"></script>

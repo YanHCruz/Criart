@@ -80,3 +80,56 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+/* --- SISTEMA DE TROCA LOGIN/CADASTRO --- */
+
+function alternarParaCadastro(event) {
+    event.preventDefault(); // Evita que a página recarregue ao clicar no link
+
+    const boxLogin = document.getElementById('boxLogin');
+    const boxCadastro = document.getElementById('boxCadastro');
+
+    // 1. Anima a saída do Login
+    boxLogin.classList.add('fading-out');
+
+    // 2. Espera a animação terminar (300ms)
+    setTimeout(() => {
+        boxLogin.classList.add('hidden'); // Esconde o login
+        boxLogin.classList.remove('fading-out'); // Limpa a classe de animação
+
+        // 3. Mostra o Cadastro e anima a entrada
+        boxCadastro.classList.remove('hidden');
+        boxCadastro.classList.add('fading-in');
+        
+        // Remove a classe de animação depois que acabar, para ficar limpo
+        setTimeout(() => {
+            boxCadastro.classList.remove('fading-in');
+        }, 400);
+
+    }, 300); // Tempo igual ao do CSS fadeOutScale
+}
+
+function alternarParaLogin(event) {
+    event.preventDefault();
+
+    const boxLogin = document.getElementById('boxLogin');
+    const boxCadastro = document.getElementById('boxCadastro');
+
+    // 1. Anima a saída do Cadastro
+    boxCadastro.classList.add('fading-out');
+
+    // 2. Espera terminar
+    setTimeout(() => {
+        boxCadastro.classList.add('hidden');
+        boxCadastro.classList.remove('fading-out');
+
+        // 3. Mostra o Login
+        boxLogin.classList.remove('hidden');
+        boxLogin.classList.add('fading-in');
+
+        setTimeout(() => {
+            boxLogin.classList.remove('fading-in');
+        }, 400);
+
+    }, 300);
+}

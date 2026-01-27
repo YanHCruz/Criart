@@ -152,7 +152,7 @@ input:not(:placeholder-shown) ~ .reset {
 /* -Hero Section */
 .hero-section {
     position: relative;
-    min-height: 85vh; /* Altura da tela */
+    min-height: calc(100vh - 100px); /* Altura da tela, para ela calcular e ficar na tela inteira */
     display: flex;
     justify-content: center;
     padding-top: 50px;
@@ -311,12 +311,52 @@ input:not(:placeholder-shown) ~ .reset {
 .modal-content {
     background-color: rgb(255, 255, 255);
     padding: 40px;
-    border-radius: 50px; /* Bordas bem redondas estilo Criart */
+    border-radius: 50px; 
     width: 90%;
-    max-width: 400px; /* Tamanho máximo */
+    max-width: 400px; 
     text-align: center;
     position: relative;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: all 0.4s ease-in-out;
+    overflow: hidden;
+}
+
+/* Classe utilitária para esconder elementos */
+.hidden {
+    display: none;
+}
+
+/* Estado de Saída (Quando o form está sumindo) */
+.fading-out {
+    animation: fadeOutScale 0.3s forwards;
+}
+
+/* Estado de Entrada (Quando o form está aparecendo - O "POP") */
+.fading-in {
+    animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Esse cubic-bezier faz o efeito de "mola" */
+}
+
+/* Keyframes: Define o movimento exato */
+@keyframes fadeOutScale {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.8); /* Diminui um pouco ao sumir */
+    }
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px); /* Começa menor e um pouco pra baixo */
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 /* Botão Fechar (X) */
@@ -430,3 +470,106 @@ input:not(:placeholder-shown) ~ .reset {
     transition: 0.3s;
 }
 .icon-btn:hover { background-color: #f0f0f0; }
+
+
+/* Responsividade */
+
+/* Tablets e telas médias (até 1024px) */
+@media (max-width: 1080px) {
+    
+    /* Diminuir espaçamento lateral */
+    header {
+        padding: 20px 30px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+    
+    /* Ajuste da imagem para não estourar */
+    .hero-image img {
+        max-width: 100%;
+    }
+}
+
+/* Celulares e tablets (até 768px) */
+@media (max-width: 768px) {
+
+    /* Header (Menu) */
+    /* Transforma o menu horizontal em uma pilha vertical */
+    header {
+        flex-direction: column; /* Um embaixo do outro */
+        gap: 20px; /* Espaço entre Logo, Menu e Busca */
+        padding: 20px;
+    }
+
+    nav ul {
+        flex-wrap: wrap; /* Permite que os links quebrem linha se necessário */
+        justify-content: center; /* Centraliza os links */
+        gap: 15px;
+    }
+
+    nav ul li a {
+        font-size: 16px; /* Fonte um pouco menor */
+    }
+
+    /*  HERO SECTION (Conteúdo Principal)  */
+    .hero-section {
+        height: auto; /* Remove altura fixa para o conteúdo caber */
+        min-height: 100vh; /* Garante que ocupe pelo menos a tela toda */
+        padding-bottom: 100px; /* Espaço extra embaixo para a onda não cobrir o conteúdo */
+    }
+
+    .container-hero {
+        flex-direction: column; /* Texto em cima, Imagem embaixo */
+        text-align: center; /* Centraliza o texto */
+        margin-top: 20px;
+    }
+
+    /* Ajustes no texto */
+    .hero-text {
+        max-width: 100%; /* Ocupa a largura toda */
+        margin-bottom: 40px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem; /* Título menor para celular */
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+        padding: 0 10px; /* Margem interna para não colar na borda da tela */
+    }
+
+    /* Ajustes no Botão */
+    .btn-ver {
+        width: 100%; /* Botão ocupa largura total ou... */
+        max-width: 250px; /* ...máximo de 250px */
+    }
+
+    /* Ondas */
+    /* Ajusta a altura da onda para não ocupar metade da tela do celular */
+    .waves {
+        height: 60px;
+        min-height: 60px;
+    }
+    
+    /* Modal de login */
+    .modal-content {
+        padding: 30px 20px; /* Menos padding interno */
+        width: 95%; /* Ocupa quase toda a tela */
+    }
+}
+
+/*  Celulares muito pequenos (até 480px) */
+@media (max-width: 480px) {
+    /* Esconde a barra de pesquisa animada e deixa só o ícone ou ajusta o tamanho */
+    .form {
+        --width-of-input: 100%; /* Input ocupa largura disponível */
+    }
+    
+    .header-container {
+        width: 100%;
+        justify-content: center;
+    }
+}
