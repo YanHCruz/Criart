@@ -137,8 +137,6 @@ function alternarParaLogin(event) {
 
 // Função de esqueci a senha 
 
-/* --- TRANSIÇÃO PARA ESQUECI A SENHA --- */
-
 function alternarParaEsqueci(event) {
     event.preventDefault();
     const boxLogin = document.getElementById('boxLogin');
