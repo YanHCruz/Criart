@@ -38,7 +38,7 @@ window.onload = function () {
     // 1. Inicializa com seu ID (Verifique se o ID está correto no Console do Google Cloud)
     google.accounts.id.initialize({
         client_id: "82393453867-lu8k3cku3gpsoak40uveod0io0ilm2bb.apps.googleusercontent.com",
-        callback: handleCredentialResponse
+        callback: "handleCredentialResponse"
     });
 
     // 2. RENDERIZA O BOTÃO (Aqui é onde arrumamos o visual)
@@ -49,7 +49,7 @@ window.onload = function () {
             size: "large",    // Tamanho grande
             type: "icon",     // <--- ISSO É O IMPORTANTE: "icon" mostra só o simbolo, "standard" mostra texto
             shape: "circle",  // <--- Deixa redondinho
-            // text: "signin"   // As vezes o Google precisa disso como fallback
+            //  text: "signin"   // As vezes o Google precisa disso como fallback
         } 
     );
 }
@@ -131,5 +131,50 @@ function alternarParaLogin(event) {
             boxLogin.classList.remove('fading-in');
         }, 400);
 
+    }, 300);
+}
+
+
+// Função de esqueci a senha 
+
+/* --- TRANSIÇÃO PARA ESQUECI A SENHA --- */
+
+function alternarParaEsqueci(event) {
+    event.preventDefault();
+    const boxLogin = document.getElementById('boxLogin');
+    const boxEsqueci = document.getElementById('boxEsqueciSenha');
+
+    boxLogin.classList.add('fading-out');
+
+    setTimeout(() => {
+        boxLogin.classList.add('hidden');
+        boxLogin.classList.remove('fading-out');
+
+        boxEsqueci.classList.remove('hidden');
+        boxEsqueci.classList.add('fading-in');
+
+        setTimeout(() => {
+            boxEsqueci.classList.remove('fading-in');
+        }, 400);
+    }, 300);
+}
+
+function alternarDeEsqueciParaLogin(event) {
+    event.preventDefault();
+    const boxLogin = document.getElementById('boxLogin');
+    const boxEsqueci = document.getElementById('boxEsqueciSenha');
+
+    boxEsqueci.classList.add('fading-out');
+
+    setTimeout(() => {
+        boxEsqueci.classList.add('hidden');
+        boxEsqueci.classList.remove('fading-out');
+
+        boxLogin.classList.remove('hidden');
+        boxLogin.classList.add('fading-in');
+
+        setTimeout(() => {
+            boxLogin.classList.remove('fading-in');
+        }, 400);
     }, 300);
 }
