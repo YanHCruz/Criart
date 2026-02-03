@@ -23,32 +23,27 @@ window.onclick = function(event) {
 function handleCredentialResponse(response) {
     // Decodifica o token para ler os dados
     const data = jwtDecode(response.credential);
-
-    // Mostra no console para você ver que funcionou
     console.log("Logado como:", data.email);
     console.log("Nome:", data.name);
-    
-    // Fecha o modal e dá um feedback
     fecharModal();
-    // Exemplo: Trocar a foto do header pela foto do Google
-    // document.querySelector('.profile-icon').innerHTML = `<img src="${data.picture}" style="border-radius: 50%; width: 100%;">`;
+    //document.querySelector('.profile-icon').innerHTML = `<img src="${data.picture}" style="border-radius: 50%; width: 100%;">`;
 }
 
 window.onload = function () {
-    // 1. Inicializa com seu ID (Verifique se o ID está correto no Console do Google Cloud)
+    // Verifique se o ID está correto no Console do Google Cloud
     google.accounts.id.initialize({
         client_id: "82393453867-lu8k3cku3gpsoak40uveod0io0ilm2bb.apps.googleusercontent.com",
-        callback: "handleCredentialResponse"
+        callback: handleCredentialResponse
     });
 
-    // 2. RENDERIZA O BOTÃO (Aqui é onde arrumamos o visual)
+    // Arruma o visual 
     google.accounts.id.renderButton(
-        document.getElementById("botao-google"), // Onde ele vai aparecer
+        document.getElementById("botao-google"), 
         { 
             theme: "outline", 
-            size: "large",    // Tamanho grande
-            type: "icon",     // <--- ISSO É O IMPORTANTE: "icon" mostra só o simbolo, "standard" mostra texto
-            shape: "circle",  // <--- Deixa redondinho
+            size: "large",    
+            type: "standard",     
+            shape: "rectangular"  
             //  text: "signin"   // As vezes o Google precisa disso como fallback
         } 
     );
