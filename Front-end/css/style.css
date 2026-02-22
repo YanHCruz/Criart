@@ -151,7 +151,10 @@ input:not(:placeholder-shown) ~ .reset {
 
 /* -Hero Section */
 .hero-section {
-    position: relative;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
     min-height: calc(100vh - 100px); /* Altura da tela, para ela calcular e ficar na tela inteira */
     display: flex;
     justify-content: center;
@@ -183,12 +186,12 @@ input:not(:placeholder-shown) ~ .reset {
 }
 
 /* Cores das letras do título */
-.c-blue { color: #67abc6; font-family: 'Permanent Marker'; }
-.c-orange { color: #FFA500; font-family: 'Permanent Marker'; }
-.c-gray { color: #A9A9A9; font-family: 'Permanent Marker'; }
-.c-yellow { color: #FFD700; font-family: 'Permanent Marker'; }
-.c-green { color: #32CD32; font-family: 'Permanent Marker'; }
-.c-dblue { color: #4682B4; font-family: 'Permanent Marker'; }
+.c-blue { color: #5744ff; font-family: 'Permanent Marker'; }
+.c-orange { color: #fe4343; font-family: 'Permanent Marker'; }
+.c-gray { color: #10e1d3; font-family: 'Permanent Marker'; }
+.c-yellow { color: #eeff01; font-family: 'Permanent Marker'; }
+.c-green { color: #1ff51f; font-family: 'Permanent Marker'; }
+.c-dblue { color: #2c98f0; font-family: 'Permanent Marker'; }
 
 .hero-text p {
     font-size: 1.2rem;
@@ -212,6 +215,7 @@ input:not(:placeholder-shown) ~ .reset {
     background-color: rgba(135, 206, 235, 0.5); /* Leve azul no fundo */
     box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
     transition: all 0.3s ease-in-out;
+    text-decoration: none;
 }
 
 .btn-ver:hover { 
@@ -578,10 +582,12 @@ input:not(:placeholder-shown) ~ .reset {
 
 /* Footer */
 .footer-principal {
-    background-color: #8DE0FE;
+    background-color: #BDE0FE;
     padding: 60px 20px 20px;
     border-top: 5px solid #fff;
-    margin-top: 50px;
+    margin-top: 0;
+    position: relative;
+    z-index: 10;
 }
 
 .footer-container {
@@ -729,4 +735,140 @@ input:not(:placeholder-shown) ~ .reset {
         flex-direction: column;
         text-align: center;
     }
+}
+
+/* Sobre nós */
+.sobre-section {
+    position: relative;
+    background-color: #fff;
+    padding: 80px 20px 100px;
+    margin-top: -80px;
+    z-index: 10;
+}
+
+.sobre-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+/* Tipografia */
+.subtitulo {
+    color: #FFA500;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.sobre-texto h2 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 3rem;
+    line-height: 1.2;
+    color: #4682B4;
+    margin-top: 20px;
+}
+
+.destaque-text {
+    color: #FFA500;
+    position: relative;
+}
+
+.destaque-text p {
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+/* Estátisticas */
+.stats-box {
+    display: flex;
+    gap: 40px;
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #F0FBFF;
+    border-radius: 20px;
+    border-left: 5px solid #4682B4;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat .numero {
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.stat .legenda {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Ajuste das imagens */
+.sobre-imagem {
+    position: relative;
+    flex: 1;
+    height: 500px;
+}
+
+/* Caso seja preciso mexer nas imagens */
+ /* .img-grande {
+    width: 80%;
+    height: auto;
+    border-radius: 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    box-shadow: 20px 20px 0px #BDE0FE;
+    z-index: 2;
+} 
+
+.img-pequena {
+    width: 50%;
+    height: auto;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    border: 5px solid white; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    z-index: 3;
+} */
+/* 
+.circulo-decorativo {
+    width: 200px;
+    height: 200px;
+    background-color: #FFF9CA;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    z-index: -1;
+} */
+
+/* Responsivo */
+@media (max-width: 900px) {
+    .sobre-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .stats-box {
+        justify-content: center;
+    }
+
+    .sobre-imagens {
+        width: 100%;
+        height: 400px;
+        margin-top: 40px;
+    }
+
+    .img-grande { position: relative; width: 90%; right: auto; }
+    .img-pequena { display: none;}
 }
