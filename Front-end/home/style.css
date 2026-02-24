@@ -811,46 +811,64 @@ input:not(:placeholder-shown) ~ .reset {
 }
 
 /* Ajuste das imagens */
-.sobre-imagem {
+.sobre-imagens {
     position: relative;
     flex: 1;
-    height: 500px;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Caso seja preciso mexer nas imagens */
- /* .img-grande {
-    width: 80%;
-    height: auto;
-    border-radius: 30px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    box-shadow: 20px 20px 0px #BDE0FE;
-    z-index: 2;
-} 
-
-.img-pequena {
-    width: 50%;
-    height: auto;
-    border-radius: 20px;
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    border: 5px solid white; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+.foto-equipe-wrapper {
+    position: relative;
+    background-color: white;
+    padding: 15px 15px 45px 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    transform: rotate(-5deg); /* Efeito de inclinação na imagem */
     z-index: 3;
-} */
-/* 
+    transition: transform 0.3s ease;
+    width: 300px;
+}
+
+/* Animação de desentortar a foto */
+
+.foto-equipe-wrapper:hover {
+    transform: rotate(0deg) scale(1.05);
+    z-index: 10;
+}
+
+.img-equipe {
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+    object-fit: cover;
+}
+
+.legenda-foto {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Caveat Brush', cursive;
+    font-size: 1.3rem;
+    color: #4682b4;
+}
+
+
 .circulo-decorativo {
-    width: 200px;
-    height: 200px;
-    background-color: #FFF9CA;
+    width: 300px;
+    height: 300px;
+    background-color: #caedf9;
     border-radius: 50%;
     position: absolute;
     top: 50%;
-    left: 20%;
-    z-index: -1;
-} */
+    left: 50px;
+    transform: translate(-15%, -50%);
+    z-index: 1;
+} 
 
 /* Responsivo */
 @media (max-width: 900px) {
@@ -865,10 +883,12 @@ input:not(:placeholder-shown) ~ .reset {
 
     .sobre-imagens {
         width: 100%;
-        height: 400px;
-        margin-top: 40px;
+        min-height: 350px;
+        margin-top: 20px;
     }
 
-    .img-grande { position: relative; width: 90%; right: auto; }
-    .img-pequena { display: none;}
+    .foto-equipe-wrapper {
+        width: 250px; /* Fica menorzinha no celular */
+        transform: rotate(3deg); /* Torta para o outro lado */
+    }
 }
