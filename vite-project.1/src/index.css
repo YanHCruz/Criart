@@ -1,68 +1,894 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Permanent+Marker&display=swap');
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif; /* Fonte padrão */
 }
 
 body {
-  margin: 0;
+    background-color: #BDE0FE; /* Fundo azul claro */
+    overflow-x: hidden;
+}
+
+/* header */
+header {
+    display: flex; /* Alinha Logo, Nav e Busca na mesma linha */
+    justify-content: space-between; /* Espalha eles */
+    align-items: center;
+    padding: 20px 50px;
+}
+
+/* Texto do header */
+nav ul {
+    list-style: none;  
+    display: flex;     
+    gap: 30px;         
+    align-items: center;
+}
+
+nav ul li a {
+    text-decoration: none; 
+    color: #333;          
+    font-size: 18px;
+    font-weight: 500;
+    position: relative;    
+    padding-bottom: 5px;
+}
+
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0%;            
+    height: 2px;         
+    bottom: 0;
+    left: 50%;           
+    background-color: #78c1fd;
+    transition: all 0.3s ease-in-out; 
+    transform: translateX(-50%); 
+}
+
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* Barra de pesquisa arredondada */
+.header-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Estilo da barra de pesquisa */
+.form button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+/* styling of whole input container */
+.form {
+  --timing: 0.3s;
+  --width-of-input: 200px;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #2f2ee9;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg,#fff);
+}
+/* styling of Input */
+.input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+/* styling of animated border */
+.form:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+/* Hover on Input */
+.form:focus-within {
+  border-radius: var(--after-border-radius);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+input:focus {
+  outline: none;
+}
+/* here is code of animated border */
+.form:focus-within:before {
+  transform: scale(1);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+.reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
 }
-button:hover {
-  border-color: #646cff;
+/* close button shown when typing */
+input:not(:placeholder-shown) ~ .reset {
+  opacity: 1;
+  visibility: visible;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* sizing svg icons */
+.form svg {
+  width: 17px;
+  margin-top: 3px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.profile-icon svg {
+    cursor: pointer;
+    background-color: white;
+    border-radius: 200px;
+}
+
+/* -Hero Section */
+.hero-section {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    min-height: calc(100vh - 100px); /* Altura da tela, para ela calcular e ficar na tela inteira */
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+/* Container que segura o texto e a imagem lado a lado */
+.container-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1100px; /* Limita a largura para não esticar demais */
+    padding: 0 20px;
+    z-index: 10; /* Fica na frente da onda */
+}
+
+/* Estilo do Texto */
+.hero-text {
+    max-width: 450px; /* Impede que o texto fique muito largo */
+}
+
+.hero-text h1 {
+    font-family: serif; /* Fonte serifada para o título */
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #111;
+    text-align: center;
+}
+
+/* Cores das letras do título */
+.c-blue { color: #5744ff; font-family: 'Permanent Marker'; }
+.c-orange { color: #fe4343; font-family: 'Permanent Marker'; }
+.c-gray { color: #10e1d3; font-family: 'Permanent Marker'; }
+.c-yellow { color: #eeff01; font-family: 'Permanent Marker'; }
+.c-green { color: #1ff51f; font-family: 'Permanent Marker'; }
+.c-dblue { color: #2c98f0; font-family: 'Permanent Marker'; }
+
+.hero-text p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+    font-family: 'Caveat Brush';
+}
+
+/* Botão */
+.btn-ver {
+    display: block;
+    margin: 20px auto;
+    background: transparent;
+    border:none;
+    color: #111;
+    padding: 10px 40px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background-color: rgba(135, 206, 235, 0.5); /* Leve azul no fundo */
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+}
+
+.btn-ver:hover { 
+    background-color: #60b3d3; 
+    color: rgb(255, 255, 255);
+    box-shadow: 5px 5px 15px #326b82; 
+    border-color: #60b3d3; 
+    transform: scale(1.05); 
+}
+
+/* Imagem das crianças */
+.hero-image img {
+    max-width: 1100px; /* Ajuste o tamanho da imagem */
+    width: 160%;
+    height: auto;
+}
+
+/* Wave */
+/* --- WAVE ANIMADA --- */
+.wave-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden; /* Garante que não apareça barra de rolagem horizontal */
+    line-height: 0;
+    z-index: 1; /* Fica atrás do conteúdo principal se precisar */
+}
+
+.waves {
+    position: relative;
+    width: 100%;
+    height: 21vh; /* Altura da onda (ajuste se quiser maior/menor) */
+    margin-bottom: -7px; /* Corrige pequenos espaços em alguns navegadores */
+    min-height: 100px;
+    max-height: 150px;
+}
+
+/* A Animação principal */
+.parallax > use {
+    animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+
+/* Velocidades diferentes para cada camada da onda (Parallax) */
+.parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s; /* Onda mais rápida e transparente atrás */
+}
+.parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s; /* Onda branca principal (mais lenta) na frente */
+}
+
+/* O movimento de vai-e-vem */
+@keyframes move-forever {
+    0% {
+     transform: translate3d(-90px,0,0);
+    }
+    100% { 
+      transform: translate3d(85px,0,0);
+    }
+}
+
+/* Ajuste para celulares (a onda fica um pouco mais alta) */
+@media (max-width: 768px) {
+    .waves {
+        height: 40px;
+        min-height: 40px;
+    }
+}
+
+/* --- MODAL (Fundo escuro) --- */
+.modal-overlay {
+    display: flex; /* Começa escondido */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo preto transparente */
+    backdrop-filter: blur(5px); /* Efeito de desfoque moderno no fundo */
+    z-index: 1000; /* Garante que fique em cima de tudo */
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+/* --- A CAIXA DE LOGIN --- */
+.modal-content {
+    background-color: rgb(255, 255, 255);
+    padding: 40px;
+    border-radius: 50px; 
+    width: 90%;
+    max-width: 400px; 
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: all 0.4s ease-in-out;
+    overflow: hidden;
+}
+
+/* Classe utilitária para esconder elementos */
+.hidden {
+    display: none;
+}
+
+/* Estado de Saída (Quando o form está sumindo) */
+.fading-out {
+    animation: fadeOutScale 0.3s forwards;
+}
+
+/* Estado de Entrada (Quando o form está aparecendo - O "POP") */
+.fading-in {
+    animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Esse cubic-bezier faz o efeito de "mola" */
+}
+
+/* Keyframes: Define o movimento exato */
+@keyframes fadeOutScale {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.8); /* Diminui um pouco ao sumir */
+    }
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px); /* Começa menor e um pouco pra baixo */
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Botão Fechar (X) */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.close-btn:hover { color: #333; }
+
+/* Tipografia */
+.modal-title {
+    font-family: 'Permanent Marker', cursive; /* Sua fonte de destaque */
+    color: #4682B4; /* Azul escuro do seu tema */
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.modal-subtitle {
+    font-family: 'Segoe UI', sans-serif;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Inputs (Campos de texto) */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 50px; /* Estilo pílula igual sua busca */
+    border: 1px solid #ddd;
+    background-color: #F0F8FF; /* Azulzinho muito claro */
+    outline: none;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #60b3d3;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(96, 179, 211, 0.3);
+}
+
+/* Link esqueceu senha */
+.forgot-pass {
+    width: 120px; /* alinhado para a esquerda */
+    display: block;
+    text-align: right;
+    font-size: 0.9rem;
+    color: #4682B4;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+/* Botão de Entrar (Baseado no seu .btn-ver) */
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 50px;
+    background-color: #60b3d3;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 5px 10px rgba(50, 107, 130, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-login:hover {
+    background-color: #326b82;
+    transform: scale(1.02);
+}
+
+/* Rodapé do form */
+.switch-form {
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+.switch-form a {
+    color: #FFA500; /* Laranja do seu tema */
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Ícones sociais (simples) */
+.social-login { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
+.social-login p { font-size: 0.8rem; color: #999; margin-bottom: 10px; }
+.social-icons { display: flex; justify-content: center; gap: 10px; }
+.icon-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    font-weight: bold;
+    color: #555;
+    transition: 0.3s;
+}
+.icon-btn:hover { background-color: #f0f0f0; }
+
+
+/* Responsividade */
+
+/* Tablets e telas médias (até 1024px) */
+@media (max-width: 1080px) {
+    
+    /* Diminuir espaçamento lateral */
+    header {
+        padding: 20px 30px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+    
+    /* Ajuste da imagem para não estourar */
+    .hero-image img {
+        max-width: 100%;
+    }
+}
+
+/* Celulares e tablets (até 768px) */
+@media (max-width: 768px) {
+
+    /* Header (Menu) */
+    /* Transforma o menu horizontal em uma pilha vertical */
+    header {
+        flex-direction: column; /* Um embaixo do outro */
+        gap: 20px; /* Espaço entre Logo, Menu e Busca */
+        padding: 20px;
+    }
+
+    nav ul {
+        flex-wrap: wrap; /* Permite que os links quebrem linha se necessário */
+        justify-content: center; /* Centraliza os links */
+        gap: 15px;
+    }
+
+    nav ul li a {
+        font-size: 16px; /* Fonte um pouco menor */
+    }
+
+    /*  HERO SECTION (Conteúdo Principal)  */
+    .hero-section {
+        height: auto; /* Remove altura fixa para o conteúdo caber */
+        min-height: 100vh; /* Garante que ocupe pelo menos a tela toda */
+        padding-bottom: 100px; /* Espaço extra embaixo para a onda não cobrir o conteúdo */
+    }
+
+    .container-hero {
+        flex-direction: column; /* Texto em cima, Imagem embaixo */
+        text-align: center; /* Centraliza o texto */
+        margin-top: 20px;
+    }
+
+    /* Ajustes no texto */
+    .hero-text {
+        max-width: 100%; /* Ocupa a largura toda */
+        margin-bottom: 40px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem; /* Título menor para celular */
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+        padding: 0 10px; /* Margem interna para não colar na borda da tela */
+    }
+
+    /* Ajustes no Botão */
+    .btn-ver {
+        width: 100%; /* Botão ocupa largura total ou... */
+        max-width: 250px; /* ...máximo de 250px */
+    }
+
+    /* Ondas */
+    /* Ajusta a altura da onda para não ocupar metade da tela do celular */
+    .waves {
+        height: 60px;
+        min-height: 60px;
+    }
+    
+    /* Modal de login */
+    .modal-content {
+        padding: 30px 20px; /* Menos padding interno */
+        width: 95%; /* Ocupa quase toda a tela */
+    }
+}
+
+/*  Celulares muito pequenos (até 480px) */
+@media (max-width: 480px) {
+    /* Esconde a barra de pesquisa animada e deixa só o ícone ou ajusta o tamanho */
+    .form {
+        --width-of-input: 100%; /* Input ocupa largura disponível */
+    }
+    
+    .header-container {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+/* Footer */
+.footer-principal {
+    background-color: #BDE0FE;
+    padding: 60px 20px 20px;
+    border-top: 5px solid #fff;
+    margin-top: 0;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-col h3 {
+    font-family: 'Permanent Marker', cursive;
+    color: #4682b4;
+    margin-bottom: 20px;
+}
+
+/* Links / redes sociais */
+.social-login-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  -webkit-box-reflect: below 5px linear-gradient(transparent, #00000055);
+}
+.social-login-icons svg {
+  width: 40px;
+}
+
+.social-icon-1,
+.social-icon-1-1,
+.social-icon-2,
+.social-icon-2-2,
+.social-icon-3,
+.social-icon-3-3,
+.social-icon-4,
+.social-icon-4-4 {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  margin: 20px 0 0px 0;
+}
+
+.icon svg {
+  fill: #111;
+}
+
+.socialcontainer {
+  height: 80px;
+  overflow: hidden;
+}
+.social-icon-1 {
+  transition-duration: 0.4s;
+  background-color: rgb(0, 0, 0);
+  transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
+}
+.social-icon-1 svg,
+.social-icon-2 svg,
+.social-icon-3 svg,
+.social-icon-4 svg {
+  opacity: 0;
+  transition-duration: 0.5s;
+  transition-delay: 0.2s;
+}
+.social-icon-1-1 {
+  transition-duration: 0.4s;
+  background-color: rgb(0, 0, 0, 0);
+}
+.socialcontainer:hover .social-icon-1 {
+  transform: translateY(-70px);
+}
+.socialcontainer:hover .social-icon-1 svg,
+.socialcontainer:hover .social-icon-2 svg,
+.socialcontainer:hover .social-icon-3 svg,
+.socialcontainer:hover .social-icon-4 svg {
+  opacity: 1;
+}
+.social-icon-2 {
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
+  background: linear-gradient(
+    72.44deg,
+    #ff7a00 11.92%,
+    #ff0169 51.56%,
+    #d300c5 85.69%
+  );
+}
+.socialcontainer:hover .social-icon-2 {
+  transform: translateY(-70px);
+}
+.social-icon-3 {
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
+  background: #316ff6;
+}
+
+.socialcontainer:hover .social-icon-3 {
+  transform: translateY(-70px);
+}
+
+.social-link-wrapper {
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* SAC */
+.sac-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sac-form input, .sac-form textarea {
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    outline: none;
+}
+
+.mapa-container {
+    margin-top: 15px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 0.9rem;
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Sobre nós */
+.sobre-section {
+    position: relative;
+    background-color: #fff;
+    padding: 80px 20px 100px;
+    margin-top: -80px;
+    z-index: 10;
+}
+
+.sobre-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+/* Tipografia */
+.subtitulo {
+    color: #FFA500;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.sobre-texto h2 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 3rem;
+    line-height: 1.2;
+    color: #4682B4;
+    margin-top: 20px;
+}
+
+.destaque-text {
+    color: #FFA500;
+    position: relative;
+}
+
+.destaque-text p {
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+/* Estátisticas */
+.stats-box {
+    display: flex;
+    gap: 40px;
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #F0FBFF;
+    border-radius: 20px;
+    border-left: 5px solid #4682B4;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat .numero {
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.stat .legenda {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Ajuste das imagens */
+.sobre-imagens {
+    position: relative;
+    flex: 1;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.foto-equipe-wrapper {
+    position: relative;
+    background-color: white;
+    padding: 15px 15px 45px 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    transform: rotate(-5deg); /* Efeito de inclinação na imagem */
+    z-index: 3;
+    transition: transform 0.3s ease;
+    width: 300px;
+}
+
+/* Animação de desentortar a foto */
+
+.foto-equipe-wrapper:hover {
+    transform: rotate(0deg) scale(1.05);
+    z-index: 10;
+}
+
+.img-equipe {
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+    object-fit: cover;
+}
+
+.legenda-foto {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Caveat Brush', cursive;
+    font-size: 1.3rem;
+    color: #4682b4;
+}
+
+
+.circulo-decorativo {
+    width: 300px;
+    height: 300px;
+    background-color: #caedf9;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50px;
+    transform: translate(-15%, -50%);
+    z-index: 1;
+} 
+
+/* Responsivo */
+@media (max-width: 900px) {
+    .sobre-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .stats-box {
+        justify-content: center;
+    }
+
+    .sobre-imagens {
+        width: 100%;
+        min-height: 350px;
+        margin-top: 20px;
+    }
+
+    .foto-equipe-wrapper {
+        width: 250px; /* Fica menorzinha no celular */
+        transform: rotate(3deg); /* Torta para o outro lado */
+    }
 }
