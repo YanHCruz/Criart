@@ -151,9 +151,7 @@ input:not(:placeholder-shown) ~ .reset {
 
 /* -Hero Section */
 .hero-section {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
+    position: center;
     z-index: 1;
     min-height: calc(100vh - 100px); /* Altura da tela, para ela calcular e ficar na tela inteira */
     display: flex;

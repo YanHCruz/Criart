@@ -12,7 +12,7 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
     return (
         <div className = 'modal-overlay'>
             <div className = 'modal-content'>
-                <span className = 'close-btn' onClick = {fecharModal}>X</span>
+                <span className = 'close-btn' onClick = {fecharModal}>x</span>
 
                 {/* Tela de login */}
                 {telaAtiva === 'login' && (

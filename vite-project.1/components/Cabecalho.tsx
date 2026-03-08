@@ -4,19 +4,38 @@ import { ModalLogin } from './ModalLogin';
 export function Cabecalho() {
     const [modalAberto, setModalAberto] = useState(false);
 
+    // Função de rolagem
+    const rolarParaSecao = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+        e.preventDefault(); 
+
+        const elemento = document.getElementById(id);
+        if (elemento) {
+
+            elemento.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <header>
             <div className="logo">
-                {/* Dica: Tirei o ../public/ daqui também, deixe só /img/... */}
-                <img src="/img/Logo nova_criart.png" alt="logo criart" />
+                 <img src="/img/Logo nova_criart.png" alt="logo criart" style={{ width: '80px' }} />
             </div>
 
             <nav>
                 <ul>
-                    <li><a href='#inicio'>Início</a></li>
-                    <li><a href='#sobre-nos'>Sobre nós</a></li>
-                    <li><a href='#eventos'>Eventos</a></li>
-                    <li><a href='#doacoes'>Doações</a></li>
+                    {/* Alteração dos links para funcionar a seção onClick */}
+                    <li>
+                        <a href='#inicio' onClick={(e) => rolarParaSecao(e, 'inicio')}>Início</a>
+                    </li>
+                    <li>
+                        <a href='#sobre-nos' onClick={(e) => rolarParaSecao(e, 'sobre-nos')}>Sobre nós</a>
+                    </li>
+                    <li>
+                        <a href='#eventos' onClick={(e) => rolarParaSecao(e, 'eventos')}>Eventos</a>
+                    </li>
+                    <li>
+                        <a href='#doacoes' onClick={(e) => rolarParaSecao(e, 'doacoes')}>Doações</a>
+                    </li>
                 </ul>
             </nav>
         
