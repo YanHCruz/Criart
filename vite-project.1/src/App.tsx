@@ -5,6 +5,7 @@ import { Inicio } from '../components/Inicio'
 import { Sobre } from '../components/Sobre'
 import { Eventos } from '../components/Eventos'
 import { Doacoes } from '../components/Doacoes'
+import { Depoimentos } from '../components/Depoimentos'
 import { Rodape } from '../components/Rodape'
 
 
@@ -19,6 +20,7 @@ export function App() {
       <Sobre />
       <Eventos />
       <Doacoes />
+      <Depoimentos />
       <Rodape />
 
     </main>
