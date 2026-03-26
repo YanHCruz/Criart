@@ -56,12 +56,22 @@ export function Rodape() {
                     </div>
                     <p style={{ marginTop: '15px' }}>Acompanhe nosso dia a dia!</p>
                 </div>
+                
+                <div className="footer-col">
+                    <h3>De o seu feedback</h3>
+                       <form id="formFeed" className="feed-form">
+                        <input type="text" placeholder="Seu nome" required />
+                        <input type="text" placeholder="Qual o seu papel?" required />
+                        <input placeholder="Seu feedback" required></input>
+                        <button type="submit" className="btn-login">Enviar</button>
+                    </form>
+                </div>
 
                 <div className="footer-col">
                     <h3>SAC Criart</h3>
                     <form id="formSac" className="sac-form">
                         <input type="text" placeholder="Seu nome" required />
-                        <textarea placeholder="Sua dúvida ou sugestão" required></textarea>
+                        <input placeholder="Sua dúvida ou sugestão" required></input>
                         <button type="submit" className="btn-login">Enviar</button>
                     </form>
                 </div>

@@ -603,7 +603,7 @@ input:not(:placeholder-shown) ~ .reset {
 }
 
 .footer-col h3 {
-    font-family: 'Permanent Marker', cursive;
+    font-family: 'segoe ui', sans-serif;
     color: #4682b4;
     margin-bottom: 20px;
 }
@@ -697,6 +697,21 @@ input:not(:placeholder-shown) ~ .reset {
     text-decoration: none;
     display: inline-block;
 }
+
+/* Feedback */
+.feed-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.feed-form input, .feed-form textarea {
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    outline: none;
+}
+
 
 /* SAC */
 .sac-form {
