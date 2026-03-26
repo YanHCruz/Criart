@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './Depoimentos.css';
 
+// Se caso for preciso adicionar mais depoimentos, já foi feito o teste e só copiar e adicionar as informações necessárias, enquanto não houver o banco.
 const dadosEstaticos = [
     {
         id: 1,
@@ -22,7 +23,7 @@ const dadosEstaticos = [
         papel: 'Aluna (10 anos)',
         texto: 'Eu amo brincar e desenhar aqui! Meus amigos são muito legais e os professores também.',
         foto_url: 'https://via.placeholder.com/80/90EE90/000000?text=Mari'
-    }
+    },
 ];
 
 export function Depoimentos() {
