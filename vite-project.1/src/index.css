@@ -474,6 +474,14 @@ input:not(:placeholder-shown) ~ .reset {
 }
 .icon-btn:hover { background-color: #f0f0f0; }
 
+.erro-cpf {
+    display: block;
+    color: #FF6B6B; /* Aquele seu vermelho/salmão lúdico */
+    font-size: 0.8rem;
+    margin-top: 5px;
+    text-align: left;
+    padding-left: 10px;
+}
 
 /* Responsividade */
 
