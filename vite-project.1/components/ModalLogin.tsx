@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 // Isso vai mostrar quais props o modal precisaria receber para funcionar
 interface ModalLoginProps {
@@ -13,6 +13,9 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
     const [cpfValido, setCpfValido] = useState<boolean>(false);
     const [erroCpf, setErroCpf] = useState<string>('');
     const [cpfInput, setCpfInput] = useState<string>('');
+    const [senhaInput, setSenhaInput] = useState('');
+    const [emailInput, setEmailInput] = useState('');
+    const [nomeInput, setNomeInput] = useState('');
 
 
     // Função para CPF toda vez que o usuário digitar uma tecla no campo
@@ -34,6 +37,9 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
 
         // Atualização do que aparecera na tela
         setCpfInput(valor);
+        // setSenhaInput(valor);
+        // setEmailInput(valor);
+        // setNomeInput(valor);
 
         // Função matemática para a validação
         const cpfLimpo = valor.replace(/\D/g, ""); // Remove tudo o que não for número para a validação
@@ -52,18 +58,79 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
     };
 
     // Função com algoritmo oficial para validação
-    const validaCalculoCpf = (cpf: string) => {
-        if (/^(\d)\1{10}$/.test(cpf)) return false;
+    const validaCalculoCpf = (cpfOriginal: string) => {
+        const cpf = cpfOriginal.replace(/[^\d]+/g, '');
+
+        if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
 
         let soma = 0;
         let resto;
 
-        // Valida primeiro digito verificador
-        for (let i = 1; i <=10; i++) soma = soma + parseInt(cpf.substring(i - 1, i)) * (12 - i);
-        if ((resto == 10) || (resto == 11)) resto = 0;
-        if (resto != parseInt(cpf.substring(10, 11))) return false;
+        // Função de cáculo para o 1º digito
+        for (let i = 1; i <= 9; i++) {
+            soma = soma + parseInt(cpf.substring(i - 1, i)) * (11 - i);
+        }
+        resto = (soma * 10) % 11;
+        if ((resto === 10) || (resto === 11)) resto =  0; {
 
+            if (resto !== parseInt(cpf.substring(9, 10))) return false;
+
+            soma = 0; // Zero a soma para a segunda parte do cálculo
+            for (let i = 1; i <= 10; i++) {
+                soma = soma + parseInt(cpf.substring(i - 1, i)) * (12 - i);
+            }
+            resto = (soma * 10) % 11;
+            if ((resto === 10) || (resto === 11)) resto = 0;
+            
+            // Se a matemática não bater com o 11º número digitado, é falso
+            if (resto !== parseInt(cpf.substring(10, 11))) return false;
+        }
         return true;
+    };
+
+
+    // Função para enviar para o Python
+
+    const lidarComCadastro = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+        event.preventDefault(); // Evita que a página recarregue
+
+        setErroCpf('Validando e salvando no servidor...');
+
+        try {
+            const resposta = await fetch('http://localhost:5000/api/validar-cpf', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // Transforma o CPF digitado em um formato JSON
+                body: JSON.stringify({
+                    nome: nomeInput,
+                    cpf: cpfInput,
+                    email: emailInput,
+                    senha: senhaInput
+                 }),
+            });
+            const dados = await resposta.json(); 
+
+            if (resposta.ok) {
+                // Se retornar 200 (Sucesso)
+                setErroCpf('');
+                alert('Sucesso! ' + dados.mensagem);
+                
+                // Limpa os campos após sucesso 
+                setNomeInput('');
+                setCpfInput('');
+                setEmailInput('');
+                setSenhaInput('');
+            } else {
+                // Se retornar 400 (erro)
+                setErroCpf(dados.mensagem);
+                setCpfValido(false);
+            }
+        } catch (error) {
+            console.error('Erro ao validar CPF:', error);
+            setErroCpf('Erro ao conectar com o servidor. Tente novamente mais tarde.');
+        }
     };
 
     return (
@@ -130,15 +197,23 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
                                 {erroCpf && <span className="erro-cpf">{erroCpf}</span>}
                             </div>
 
-                        <form className = 'login-form'>
+                        <form className = 'login-form' onSubmit={lidarComCadastro}>
+
                             <div className = 'input-group'>
-                                <input type = 'text' placeholder = 'Nome Completo' required />
+                                <input type = 'text' placeholder = 'Nome Completo' value={nomeInput} onChange={(e) => setNomeInput(e.target.value)} required />
                             </div>
+
+                            {/* <div className = 'input-group'>
+                                <input type = 'text' placeholder = 'Cpf' value={cpfInput} onChange={lidarComMudancaCpf} required />
+                                {erroCpf && <span className='erro-cpf'>{erroCpf}</span>}
+                            </div>  */}
+
                             <div className = 'input-group'>
-                                <input type = 'email' placeholder = 'Seu e-mail' required />
+                                <input type = 'email' placeholder = 'Seu e-mail' value={emailInput} onChange={(e) => setEmailInput(e.target.value)} required />
                             </div>
+
                             <div className="input-group">
-                                <input type="password" placeholder="Crie uma senha" required />
+                                <input type="password" placeholder="Crie uma senha" value={senhaInput} onChange={(e) => setSenhaInput(e.target.value)} required />
                             </div>
 
                            {/* O botão de cadastrar só fica clicável se o CPF for matematicamente válido */}
