@@ -3,6 +3,8 @@ from flask_cors import CORS
 import pyodbc
 import re
 import bcrypt
+from google.oauth2 import id_token
+from google.auth.transport import requests as google_requests
 
 # Criação do servidor
 app = Flask(__name__)
@@ -10,6 +12,8 @@ CORS(app) # Liberação do CORS (para o React ler)
 
 # Conexão com o Banco de Dados 
 STRING_CONEXAO = "Driver={SQL Server};Server=DESKTOP-V8GUBC5;Database=master;Trusted_Connection=yes;"
+
+GOOGLE_CLIENT_ID = '483632354650-ek3suo4ipmj3brqnlqlqlmsof529hgif.apps.googleusercontent.com'
 
 # Função para matemática do CPF
 def is_cpf_valido (cpf):
@@ -100,6 +104,33 @@ def listar_depoimentos():
 
     # Devolução para o react
     return jsonify(depoimentos_do_banco)
+
+@app.route('/api/login-google', methods=['POST'])
+def login_google():
+    dados = request.get_json()
+    token_recebido = dados.get('token') # Pega o token enviado via React
+    
+    if not token_recebido:
+        return jsonify({"Valido": False, "Mensagem": "Token não fornecido."}), 400
+    
+    try:
+        # Recebe o toke do cliente e valida com a Google
+        id_info = id_token.verify_oauth2_token(
+            token_recebido,
+            google_requests.Request(),
+            GOOGLE_CLIENT_ID
+        )
+        # Se o token for válido, o (i_info) conterá as infos do usuário
+        email = id_info.get('email')
+        nome = id_info.get('nome')
+        
+        return jsonify({"Valido": True, "Mensagem": f"Bem-vindo(A), {nome}!"}), 200
+    
+    except ValueError:
+        return jsonify({"Valido": False, "Mensagem": "Token inválido."}), 401
+
+    except Exception as e:
+        return jsonify({"Valido": False, "Mensagem": "Ocorreu um erro ao processar o login."}), 500
 
 # Rodando o server na porta 5000
 if __name__ == '__main__':

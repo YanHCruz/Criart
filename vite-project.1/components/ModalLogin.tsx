@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 // import Fade from '@mui/material/Fade';
 // import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
 // import Typography from '@mui/material/Typography';
 // import { Button } from '@mui/material';
 
@@ -191,6 +192,51 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
 
                                     <button type = 'submit' className = 'btn-login'>Entrar</button>
                         </form>
+
+                        {/* Aréa de login para o GOOGLE */}
+                        {/* Divisória visual (teste) */}
+                        {/* <div style={{ textAlign: 'center', margin: '20px 0', color: '#666' }}></div> */}
+
+                        {/* Botão oficial do GOOGLE */}
+                        <div style={{ textAlign: 'center', margin: '20px 0', color: '#666' }}>
+                            <GoogleOAuthProvider clientId='483632354650-ek3suo4ipmj3brqnlqlqlmsof529hgif.apps.googleusercontent.com'>
+                                <GoogleLogin
+                                onSuccess={ async (credentialResponse) => {
+                                    const tokenDoGoogle = credentialResponse.credential;
+                                    // Aqui onde recebe o passaporte google
+                                    console.log('Token recebido:', tokenDoGoogle);
+
+                                    try {
+                                        // React envia o token para o Pyhton
+                                        const resposta = await fetch('http://localhost:5000/api/login-google', {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: JSON.stringify({ token: tokenDoGoogle }),
+                                        });
+                                        const dados = await resposta.json();
+
+                                        if (resposta.ok) {
+                                            alert('O Python disse: ' + dados.mensagem);
+                                        } else {
+                                            alert('Erro do Python:' + dados.mensagem);
+                                        }
+                                    } catch (erro) {
+                                        console.error("Erro ao conectao com o servidor:", erro);
+                                    }
+                                }}
+                                
+                                onError={() => {
+                                    console.log('Ocorreu um erro ao tentar logar com a sua conta Google.');
+                                    // alert('Erro ao conectar com o Google!');
+                                }}
+                                // Caso precise fazer a alteração em algo no botão do google
+                                shape='pill'
+                                text='continue_with'
+                                theme='outline'
+                                />
+                            </GoogleOAuthProvider>
+                        </div>
+
                         <p className = 'switch-form'>
                             Não tem conta? <a href = '#' onClick={(e) => {e.preventDefault(); setTelaAtiva('cadastro'); }}>Cadastre-se</a>
                             </p>
@@ -253,6 +299,45 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
                                 )}
                             </button>
                         </form>
+
+                        <div style={{ textAlign: 'center', margin: '20px 0', color: '#666' }}>
+                            <GoogleOAuthProvider clientId='483632354650-ek3suo4ipmj3brqnlqlqlmsof529hgif.apps.googleusercontent.com'>
+                                <GoogleLogin
+                                onSuccess={ async (credentialResponse) => {
+                                    const tokenDoGoogle = credentialResponse.credential;
+                                    // Aqui onde recebe o passaporte google
+                                    console.log('Token recebido:', tokenDoGoogle);
+
+                                    try {
+                                        // React envia o token para o Pyhton
+                                        const resposta = await fetch('http://localhost:5000/api/login-google', {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: JSON.stringify({ token: tokenDoGoogle }),
+                                        });
+                                        const dados = await resposta.json();
+
+                                        if (resposta.ok) {
+                                            alert('O Python disse: ' + dados.mensagem);
+                                        } else {
+                                            alert('Erro do Python:' + dados.mensagem);
+                                        }
+                                    } catch (erro) {
+                                        console.error("Erro ao conectao com o servidor:", erro);
+                                    }
+                                }}
+                                
+                                onError={() => {
+                                    console.log('Ocorreu um erro ao tentar logar com a sua conta Google.');
+                                    // alert('Erro ao conectar com o Google!');
+                                }}
+                                // Caso precise fazer a alteração em algo no botão do google
+                                shape='pill'
+                                text='continue_with'
+                                theme='outline'
+                                />
+                            </GoogleOAuthProvider>
+                        </div>
 
                         <p className = 'switch-form'>
                             Já tem conta? <a href = '#' onClick={(e) => {e.preventDefault(); setTelaAtiva('login'); }}>Fazer Login</a>
