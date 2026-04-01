@@ -44,6 +44,11 @@ def validar_cpf():
     cpf_recebido = dados.get('cpf')
     email = dados.get('email')
     senha_texto_puro = dados.get('senha')
+    provedor = dados.get('provedor')
+
+    # Validação para verificar se o CPF e senha foram fornecidos
+    if not cpf_recebido or not senha_texto_puro:
+        return jsonify({"Mensagem": "CPF e/ou senha não fornecidos."}), 400
 
     # Limpa a máscara (tirando pontos e traços)
     cpf_limpo = re.sub(r'\D', '', cpf_recebido)
@@ -68,10 +73,10 @@ def validar_cpf():
         cursor = conexao.cursor()
 
         # Aqui será feito o INSERT
-        comando_sql = """INSERT INTO Usuarios (nome, cpf, email, senha) VALUES (?, ?, ?, ?)"""
+        comando_sql = """INSERT INTO Usuarios (nome, cpf, email, senha, provedor) VALUES (?, ?, ?, ?, 'Local')"""
 
         # Executa o comando trocando as interrogações pelas variáveis 
-        cursor.execute(comando_sql, (nome, cpf_limpo, email, senha_final_banco))
+        cursor.execute(comando_sql, (nome, cpf_limpo, email, senha_final_banco, provedor))
             
         # Confirma a gravação no Banco de dados
         conexao.commit()
@@ -122,9 +127,34 @@ def login_google():
         )
         # Se o token for válido, o (i_info) conterá as infos do usuário
         email = id_info.get('email')
-        nome = id_info.get('nome')
+        nome = id_info.get('name')
         
-        return jsonify({"Valido": True, "Mensagem": f"Bem-vindo(A), {nome}!"}), 200
+          # Abre a conexão do banco 
+        conexao = pyodbc.connect(STRING_CONEXAO)
+        cursor = conexao.cursor()
+        
+        # Verifica se o e-mail já está na tabela
+        cursor.execute("SELECT id, nome, provedor FROM Usuarios WHERE email = ?", (email,))
+        usuario_existente = cursor.fetchone()
+        
+        if usuario_existente:
+            # Print para teste, caso o usuário exista, fará o Login automaticamnete, será removido depois
+            print(f"Bem vindo de volta {usuario_existente.provedor}: {email}")
+            return jsonify({"Valido": True, "Mensagem": f"Bem-vindo de volta, {nome}!"}), 200
+        
+        # Aqui será adicionado o Token JWT para manter o usuário logado.
+        
+        else:
+            # Caso o e-mail não exista, será criado um novo usuário, será tirado o print depois
+            print(f"Criando novo usuário com provedor Google: {email}")
+            
+            comando_sql = """INSERT INTO Usuarios (nome, email, cpf, senha, provedor) VALUES (?, ?, NULL, NULL, 'Google')"""
+            cursor.execute(comando_sql, (nome, email))
+            conexao.commit()
+            
+            return jsonify({"Valido": True, "Mensagem": f"Conta criada com sucesso! Bem vindo(A), {nome}!"}), 201
+        
+        # return jsonify({"Valido": True, "Mensagem": f"Bem-vindo(A), {nome}!"}), 200
     
     except ValueError:
         return jsonify({"Valido": False, "Mensagem": "Token inválido."}), 401
@@ -132,6 +162,10 @@ def login_google():
     except Exception as e:
         return jsonify({"Valido": False, "Mensagem": "Ocorreu um erro ao processar o login."}), 500
 
+    finally:
+            if 'conexao' in locals():
+                conexao.close()
+    
 # Rodando o server na porta 5000
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

@@ -193,11 +193,7 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
                                     <button type = 'submit' className = 'btn-login'>Entrar</button>
                         </form>
 
-                        {/* Aréa de login para o GOOGLE */}
-                        {/* Divisória visual (teste) */}
-                        {/* <div style={{ textAlign: 'center', margin: '20px 0', color: '#666' }}></div> */}
-
-                        {/* Botão oficial do GOOGLE */}
+                        {/* Lógica de login para o Google */}
                         <div style={{ textAlign: 'center', margin: '20px 0', color: '#666' }}>
                             <GoogleOAuthProvider clientId='483632354650-ek3suo4ipmj3brqnlqlqlmsof529hgif.apps.googleusercontent.com'>
                                 <GoogleLogin
@@ -300,6 +296,7 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
                             </button>
                         </form>
 
+                                {/* Lógica do Cadastro com Google */}
                         <div style={{ textAlign: 'center', margin: '20px 0', color: '#666' }}>
                             <GoogleOAuthProvider clientId='483632354650-ek3suo4ipmj3brqnlqlqlmsof529hgif.apps.googleusercontent.com'>
                                 <GoogleLogin
@@ -333,7 +330,7 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
                                 }}
                                 // Caso precise fazer a alteração em algo no botão do google
                                 shape='pill'
-                                text='continue_with'
+                                text='signup_with'
                                 theme='outline'
                                 />
                             </GoogleOAuthProvider>
