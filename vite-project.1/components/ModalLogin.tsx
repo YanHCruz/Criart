@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+// import Fade from '@mui/material/Fade';
+// import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+// import Typography from '@mui/material/Typography';
+// import { Button } from '@mui/material';
 
 // Isso vai mostrar quais props o modal precisaria receber para funcionar
 interface ModalLoginProps {
     fecharModal: () => void;
+}
+export default function CircularIndeterminate() {
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CircularProgress />
+    </Box>
+  );
 }
 
 export function ModalLogin ({ fecharModal }: ModalLoginProps) {
@@ -16,6 +30,7 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
     const [senhaInput, setSenhaInput] = useState('');
     const [emailInput, setEmailInput] = useState('');
     const [nomeInput, setNomeInput] = useState('');
+    const [estaCarregando, setEstaCarregando] = useState<boolean>(false);
 
 
     // Função para CPF toda vez que o usuário digitar uma tecla no campo
@@ -94,8 +109,9 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
     const lidarComCadastro = async (event: React.SyntheticEvent<HTMLFormElement>) => {
         event.preventDefault(); // Evita que a página recarregue
 
-        setErroCpf('Validando e salvando no servidor...');
-
+        // Ativa o estado de carregamento Spinner
+        setEstaCarregando(true);
+        
         try {
             const resposta = await fetch('http://localhost:5000/api/validar-cpf', {
                 method: 'POST',
@@ -130,6 +146,8 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
         } catch (error) {
             console.error('Erro ao validar CPF:', error);
             setErroCpf('Erro ao conectar com o servidor. Tente novamente mais tarde.');
+        } finally {
+            setEstaCarregando(false); // Desativa o estado de carregamento
         }
     };
 
@@ -220,10 +238,19 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
                             <button 
                                 type='submit' 
                                 className='btn-login' 
-                                style={{ backgroundColor: cpfValido ? '#FFA500' : '#ccc', cursor: cpfValido ? 'pointer' : 'not-allowed' }}
-                                disabled={!cpfValido}
+                                style={{ backgroundColor: cpfValido || estaCarregando ? '#FFA500' : '#ccc', 
+                                cursor: cpfValido && !estaCarregando ? 'pointer' : 'not-allowed',
+                                display: 'flex', // Flexbox para centralizar a bolinha
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                minHeight: '40px'}}
+                               disabled={!cpfValido || estaCarregando}
                             >
-                                Cadastrar
+                             {estaCarregando ? (
+                                    <CircularProgress size={24} sx={{ color: 'white' }} />
+                                ) : (
+                                    'Cadastrar'
+                                )}
                             </button>
                         </form>
 

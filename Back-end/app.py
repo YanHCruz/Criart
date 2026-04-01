@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import pyodbc
 import re
+import bcrypt
 
 # Criação do servidor
 app = Flask(__name__)
@@ -38,7 +39,7 @@ def validar_cpf():
     nome = dados.get('nome')
     cpf_recebido = dados.get('cpf')
     email = dados.get('email')
-    senha = dados.get('senha')
+    senha_texto_puro = dados.get('senha')
 
     # Limpa a máscara (tirando pontos e traços)
     cpf_limpo = re.sub(r'\D', '', cpf_recebido)
@@ -46,6 +47,16 @@ def validar_cpf():
     # Faz a validação matemática
     if not is_cpf_valido(cpf_limpo):
         return jsonify({"valido": False, "mensagem": "CPF inválido."}), 400
+    
+    # Hash da senha utilizando bcrypt
+    senha_bytes = senha_texto_puro.encode('utf-8')
+    
+    # Gerar um salt e cria o hash de senha
+    salt = bcrypt.gensalt()
+    hash_senha = bcrypt.hashpw(senha_bytes, salt)
+
+    # Transforma o hash em senha final para armazenar no banco
+    senha_final_banco = hash_senha.decode('utf-8')
     
     # Caso o CPF seja válido, fará um INSERT no banco
     try:
@@ -56,7 +67,7 @@ def validar_cpf():
         comando_sql = """INSERT INTO Usuarios (nome, cpf, email, senha) VALUES (?, ?, ?, ?)"""
 
         # Executa o comando trocando as interrogações pelas variáveis 
-        cursor.execute(comando_sql, (nome, cpf_limpo, email, senha))
+        cursor.execute(comando_sql, (nome, cpf_limpo, email, senha_final_banco))
             
         # Confirma a gravação no Banco de dados
         conexao.commit()
