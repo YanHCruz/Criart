@@ -145,7 +145,8 @@ input:not(:placeholder-shown) ~ .reset {
 
 .profile-icon svg {
     cursor: pointer;
-    background-color: white;
+    background-color: #ffffff;
+    color: #111;
     border-radius: 200px;
 }
 

@@ -1,8 +1,33 @@
 import { useState } from 'react';
 import { ModalLogin } from './ModalLogin';
-    
+import Avatar from '@mui/material/Avatar';
+
 export function Cabecalho() {
     const [modalAberto, setModalAberto] = useState(false);
+
+        // Estado para guardar alguns dados do usuário.
+    const [nome, setNome] = useState<string | null>(() => localStorage.getItem('usuarioNome'));
+    const [foto, setFoto] = useState<string | null>(() => localStorage.getItem('usuarioFoto'));
+
+    const checarLogin = () => {
+        const nomeSalvo = localStorage.getItem('usuarioNome');
+        const fotoSalva = localStorage.getItem('usuarioFoto');
+        setNome(nomeSalvo);
+        setFoto(fotoSalva);
+    };
+
+    // Função que será utilizada para pegar a primeira inicial do nome do usuário para a foto.
+
+    const pegarInicial = (nomeCompleto: string) => {
+        return nomeCompleto.charAt(0).toUpperCase();
+    };
+
+    // Função para LogOut
+    const fazerLogout = () => {
+        localStorage.clear();
+        setNome(null);
+        setFoto(null);        
+    };
 
     // Função de rolagem
     const rolarParaSecao = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -13,6 +38,12 @@ export function Cabecalho() {
 
             elemento.scrollIntoView({ behavior: 'smooth' });
         }
+    };
+
+    // Função para o usuário fechar o modal e o header manter.
+    const aoFecharModal = () => {
+        setModalAberto(false);
+        checarLogin(); // Puxa os dados novos salvos pelo login.
     };
 
     return (
@@ -54,17 +85,39 @@ export function Cabecalho() {
                     </button>
                 </form>
                 
-                <div className='profile-icon' onClick={() => setModalAberto(true)} style={{ cursor: 'pointer' }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                </div>
+            {/* Lógica para renderização condicional */}
+           {nome ? (
+                    
+                    <div className='profile-logged-in' style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        
+                        {foto ? (
+                            // Avatar da Google
+                            <img src={foto} alt="Perfil" style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }} />
+                        ) : (
+                            // Avatar Local
+                            <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#FFA500', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold' }}>
+                                {pegarInicial(nome)}
+                            </div>
+                        )}
+                        
+                        {/* Nome do usuário e Botão de Sair */}
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                            <span style={{ fontWeight: 'bold', color: '#333', fontSize: '14px' }}>{nome.split(' ')[0]}</span>
+                            <button onClick={fazerLogout} style={{ border: 'none', background: 'transparent', color: '#d9534f', fontSize: '12px', cursor: 'pointer', padding: 0 }}>Sair</button>
+                        </div>
+                    </div>
+
+                ) : (
+                    // Mostra o ícone original caso não esteja logado
+                    <div className='profile-icon' onClick={() => setModalAberto(true)} style={{ cursor: 'pointer' }}>
+                        <Avatar sx={{ width: 32, height: 32, bgcolor: '#ffffff' }} />
+                    </div>
+                )}
             </div>
 
+            {/* Modal de Login abrir/fechar */}
             {modalAberto && (  
-                <ModalLogin fecharModal={() => setModalAberto(false)} />
+                <ModalLogin fecharModal={aoFecharModal} />
             )}
 
         </header>       

@@ -152,6 +152,54 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
         }
     };
 
+    
+const lidarComLogin = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+        setErroCpf('Verificando credenciais...');
+
+    try {
+        const resposta = await fetch('http://localhost:5000/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                cpf: cpfInput,
+                senha: senhaInput
+            }),
+        });
+        
+        const dados = await resposta.json(); 
+        if (resposta.ok) {
+            localStorage.setItem('mlSmmkz0212', dados.token);
+            localStorage.setItem('usuarioNome', dados.nome);
+            if (dados.foto_google) {
+                localStorage.setItem('usuarioFoto', dados.foto_google);
+            } else {
+                localStorage.removeItem('usuarioFoto'); // Garantia que não tem foto antiga.
+            }
+
+            // 2. Limpa os erros da tela
+            setErroCpf('');
+            alert('Sucesso! ' + dados.mensagem);
+            
+            // 3. Limpa os inputs
+            setCpfInput('');
+            setSenhaInput('');
+
+            fecharModal(); 
+            
+        } else {
+            // Se retornar erro (ex: senha errada)
+            setErroCpf(dados.mensagem || 'Credenciais inválidas. Tente novamente.');
+        }
+    } catch (error) {
+        setErroCpf('Erro ao conectar com o servidor.');
+
+        console.error('Erro ao conectar com o servidor.', error);
+        setErroCpf('Erro ao conectar com o servidor. Tente novamente!');
+    }
+};
+
     return (
         <div className = 'modal-overlay'>
             <div className = 'modal-content'>
@@ -163,8 +211,8 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
                         <h2 className = 'modal-title'>Bem vindo!</h2>
                         <p className = 'modal-title'>Faça login para continuar</p>
 
-                        <form className='login-form'>
-                            {/* ADICIONADO: Campo de CPF no Login em vez de E-mail */}
+                        <form className='login-form' onSubmit={lidarComLogin}>
+                            {/* Campo de CPF no Login em vez de E-mail */}
                             <div className='input-group'>
                                 <input 
                                     type='text' 
@@ -177,13 +225,13 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
                                 {erroCpf && <span className="erro-cpf">{erroCpf}</span>}
                             </div>
 
-                        {/* <form className = 'login-form'>
-                             <div className = 'input-group'>
-                                <input type = 'email' placeholder = 'Seu e-mail' required />
-                            </div> */}
-
-                            <div className = 'input-group'>
-                                <input type = 'password' placeholder = 'Sua senha' required />
+                          <div className = 'input-group'>
+                                <input type = 'password' 
+                                placeholder = 'Sua senha' 
+                                value = {senhaInput}
+                                onChange = {(e) => setSenhaInput(e.target.value)}
+                                required 
+                                />
                             </div>
                                 
                                 <a href = '#' className = 'forgot-pass' onClick={(e) => { e.preventDefault(); setTelaAtiva('esqueci'); }}>
@@ -199,7 +247,6 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
                                 <GoogleLogin
                                 onSuccess={ async (credentialResponse) => {
                                     const tokenDoGoogle = credentialResponse.credential;
-                                    // Aqui onde recebe o passaporte google
                                     console.log('Token recebido:', tokenDoGoogle);
 
                                     try {
@@ -212,7 +259,14 @@ export function ModalLogin ({ fecharModal }: ModalLoginProps) {
                                         const dados = await resposta.json();
 
                                         if (resposta.ok) {
-                                            alert('O Python disse: ' + dados.mensagem);
+                                           localStorage.setItem('mlSmmkz0212', dados.token);
+                                           localStorage.setItem('usuarioNome', dados.nome);
+
+                                           if (dados.foto_google) {
+                                            localStorage.setItem('usuarioFoto', dados.foto_google);
+                                           }
+
+                                           fecharModal();
                                         } else {
                                             alert('Erro do Python:' + dados.mensagem);
                                         }

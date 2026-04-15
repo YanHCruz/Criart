@@ -5,6 +5,8 @@ import re
 import bcrypt
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
+import jwt
+import datetime
 
 # Criação do servidor
 app = Flask(__name__)
@@ -92,6 +94,71 @@ def validar_cpf():
         print(f"Erro no banco: {e}")
         return jsonify({"Valido": False, "Mensagem": "Ocorreu um erro ao cadastrar o usuário."}), 500
 
+# Criação da API para a lógica do LOGIN e JWT
+app.config['SECRET_KEY'] = '#mlSmmkz0212' # Apenas para teste
+
+@app.route('/api/login', methods=['POST'])
+def login_cpf():
+    dados = request.get_json()
+    cpf_recebido = dados.get('cpf')
+    senha_texto_puro = dados.get('senha')
+    
+    if not cpf_recebido or not senha_texto_puro:
+        return jsonify({"Valido": False, "Mensagem": "CPF e senha são obrigatórios."}), 400
+    
+    # Limpa a máscara do CPF
+    cpf_limpo = re.sub(r'\D', '', cpf_recebido)
+    
+    try:
+        conexao = pyodbc.connect(STRING_CONEXAO)
+        cursor = conexao.cursor()
+        
+        # Faz o SELECT para verificar se o CPF existe
+        cursor.execute("SELECT id, nome, senha FROM Usuarios WHERE cpf = ?", (cpf_limpo,))
+        usuario = cursor.fetchone()
+        
+        # Verifica se o usuário existe
+        if not usuario:
+            return jsonify({"Valido": False, "Mensagem": "Usuário não encontrado."}), 404
+        
+        id_usuario = usuario[0]
+        nome_usuario = usuario[1]
+        senha_hash_banco = usuario[2] # Senha hash armazenada no banco
+        
+        # Verifica a senha utilizando bcrypt
+        senha_bytes = senha_texto_puro.encode('utf-8')
+        senha_hash_bytes = senha_hash_banco.encode('utf-8')
+        
+        if bcrypt.checkpw(senha_bytes, senha_hash_bytes):
+            # Gerar o token JWT
+            
+            # Aqui é feito para colocar as informações do TOKEN
+            playload = {
+                'id_usuario': id_usuario,
+                'nome': nome_usuario,
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=2) # Token expira em 2 hora
+            }
+            
+            # Assina o token com a chave secreta
+            token_jwt = jwt.encode(playload, app.config['SECRET_KEY'], algorithm='HS256')
+            
+            return jsonify({
+                "Valido": True,
+                "Mensagem": f"Bem Vindo(a) de volta, {nome_usuario}",
+                "token": token_jwt, # Token sendo enviado via REACT para cá
+                "nome": nome_usuario,
+                "foto": None # O usuário local não tem foto ainda.
+            }), 200
+        else :
+            # Se o checkpw retornar False, a senha estará incorreta.
+            return jsonify({"Valido": False, "Mensagem": "Senha incorreta."}), 401
+        
+    finally:
+        if 'conexao' in locals():
+            cursor.close()
+            conexao.close()
+            
+
 # Criação da API depoimentos
 @app.route('/api/depoimentos', methods=['GET'])
 def listar_depoimentos():
@@ -128,6 +195,7 @@ def login_google():
         # Se o token for válido, o (i_info) conterá as infos do usuário
         email = id_info.get('email')
         nome = id_info.get('name')
+        foto_google = id_info.get('picture')
         
           # Abre a conexão do banco 
         conexao = pyodbc.connect(STRING_CONEXAO)
@@ -140,10 +208,13 @@ def login_google():
         if usuario_existente:
             # Print para teste, caso o usuário exista, fará o Login automaticamnete, será removido depois
             print(f"Bem vindo de volta {usuario_existente.provedor}: {email}")
-            return jsonify({"Valido": True, "Mensagem": f"Bem-vindo de volta, {nome}!"}), 200
-        
-        # Aqui será adicionado o Token JWT para manter o usuário logado.
-        
+            return jsonify({
+                "Valido": True, 
+                "Mensagem": f"Bem-vindo de volta, {nome}!",
+                "nome": nome,
+                "foto": foto_google,
+                "token": "mlSmmkz0212"
+                }), 200
         else:
             # Caso o e-mail não exista, será criado um novo usuário, será tirado o print depois
             print(f"Criando novo usuário com provedor Google: {email}")
@@ -152,7 +223,13 @@ def login_google():
             cursor.execute(comando_sql, (nome, email))
             conexao.commit()
             
-            return jsonify({"Valido": True, "Mensagem": f"Conta criada com sucesso! Bem vindo(A), {nome}!"}), 201
+            return jsonify({
+                "Valido": True, 
+                "Mensagem": f"Conta criada com sucesso! Bem vindo(A),{nome}!",
+                "nome": nome,
+                "foto": foto_google,
+                "token": "mlSmmkz0212"
+                }), 201
         
         # return jsonify({"Valido": True, "Mensagem": f"Bem-vindo(A), {nome}!"}), 200
     
