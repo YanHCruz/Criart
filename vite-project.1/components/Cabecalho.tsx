@@ -65,7 +65,7 @@ export function Cabecalho() {
                         <a href='#eventos' onClick={(e) => rolarParaSecao(e, 'eventos')}>Eventos</a>
                     </li>
                     <li>
-                        <a href='#doacoes' onClick={(e) => rolarParaSecao(e, 'doacoes')}>Doações</a>
+                        <a href='#galeria' onClick={(e) => rolarParaSecao(e, 'galeria')}>Galeria</a>
                     </li>
                 </ul>
             </nav>

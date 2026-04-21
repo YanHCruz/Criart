@@ -242,6 +242,10 @@ def login_google():
     finally:
             if 'conexao' in locals():
                 conexao.close()
+
+# Inicio da API para a galeria
+# @app.route ('/api/galeria', methods['POST'])
+
     
 # Rodando o server na porta 5000
 if __name__ == '__main__':
