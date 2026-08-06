@@ -7,6 +7,7 @@ import { Eventos } from '../components/Eventos'
 import { Galeria } from '../components/Galeria'
 import { Depoimentos } from '../components/Depoimentos'
 import { Rodape } from '../components/Rodape'
+// import { Jornal } from '../components/Jornal'
 
 
 export function App() {
@@ -20,6 +21,7 @@ export function App() {
       <Sobre />
       <Eventos />
       <Galeria />
+      {/* <Jornal /> */}
       <Depoimentos />
       <Rodape />
 
