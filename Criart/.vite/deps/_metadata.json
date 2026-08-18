@@ -1,0 +1,76 @@
+{
+  "hash": "87c191ff",
+  "configHash": "2c9008cd",
+  "lockfileHash": "991d9248",
+  "browserHash": "1c005f78",
+  "optimized": {
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "980e9de7",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "871db292",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "679d8ae1",
+      "needsInterop": true
+    },
+    "framer-motion": {
+      "src": "../../node_modules/framer-motion/dist/es/index.mjs",
+      "file": "framer-motion.js",
+      "fileHash": "add0a54d",
+      "needsInterop": false
+    },
+    "@mui/material/Box": {
+      "src": "../../node_modules/@mui/material/esm/Box/index.js",
+      "file": "@mui_material_Box.js",
+      "fileHash": "409f68a0",
+      "needsInterop": false
+    },
+    "@mui/lab/Masonry": {
+      "src": "../../node_modules/@mui/lab/Masonry/index.mjs",
+      "file": "@mui_lab_Masonry.js",
+      "fileHash": "3a98e51a",
+      "needsInterop": false
+    },
+    "@mui/material/Modal": {
+      "src": "../../node_modules/@mui/material/esm/Modal/index.js",
+      "file": "@mui_material_Modal.js",
+      "fileHash": "491d4834",
+      "needsInterop": false
+    },
+    "@mui/material/Avatar": {
+      "src": "../../node_modules/@mui/material/esm/Avatar/index.js",
+      "file": "@mui_material_Avatar.js",
+      "fileHash": "64342a8c",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-GMROQVGM": {
+      "file": "chunk-GMROQVGM.js"
+    },
+    "chunk-SXDJQ5CX": {
+      "file": "chunk-SXDJQ5CX.js"
+    },
+    "chunk-OHIE3E62": {
+      "file": "chunk-OHIE3E62.js"
+    },
+    "chunk-UAN347NY": {
+      "file": "chunk-UAN347NY.js"
+    },
+    "chunk-AF2GVECZ": {
+      "file": "chunk-AF2GVECZ.js"
+    },
+    "chunk-PGD2RI3G": {
+      "file": "chunk-PGD2RI3G.js"
+    }
+  }
+}
