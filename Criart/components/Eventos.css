@@ -1,0 +1,112 @@
+.eventos-container {
+    padding: 4rem 2rem;
+    background-color: #fff9f9;
+    font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.titulo-secao {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #FF6B6B;
+    margin-bottom: 3rem;
+    font-weight: 800;
+}
+
+.bloco-eventos{
+    max-width: 1000px;
+    margin: 0 auto 4rem auto;
+}
+
+.subtitulo {
+    font-size: 1.8rem;
+    color: #4ECDC4;
+    margin-bottom: 1.5rem;
+    border-bottom: 3px dashed #4ECDC4;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.grid-eventos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+/* Card Eventos */
+.card-evento  {
+    background-color: #ffffff;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 450px;
+    transition: transform 0.3s ease;
+}
+
+.card-evento:hover {
+    transform: translateY(-8px);
+}
+
+.imagem-evento {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.conteudo-evento {
+    padding: 1.5rem;
+    position: relative;
+}
+
+/* Tags coloridas */
+.tag-data {
+    background-origin: #FFD166;
+    color: #333;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 1px;
+}
+
+.tag-data.concluido {
+    background-color: #E0E0E0;
+    color: #666;
+}
+
+.titulo-evento {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.descricao-evento {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+/* Botão para participar (caso seja adicionado) */
+.btn-participar {
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.btn-participar:hover:not(:disabled) {
+    background-color: #ff4c4c;
+}
+
+.btn-participar:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

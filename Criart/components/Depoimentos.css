@@ -1,0 +1,81 @@
+.depoimentos-container {
+    padding: 4rem 2rem;
+    background-color: #F9F9FE;
+    text-align: center;
+    font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.titulo-secao {
+    font-size: 2.5rem;
+    color: #ff6b6b;
+    margin-bottom: 3rem;
+    font-weight: 800;
+}
+
+/* Grid dos cards */
+.grid-depoimentos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card-depoimento {
+    background-color: #ffffff;
+    border-radius: 30px;
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Efeito de flutuar ao passar o mouse */
+.card-depoimento:hover {
+    transform: translateY(-10px);
+}
+
+.foto-perfil {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: -5rem;
+    border: 5px solid #ffffff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background-color: #eee;
+}
+
+/* Conteúdo do card */
+.conteudo-card {
+    margin-top: 1.5rem;
+}
+
+.texto {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+}
+
+.nome {
+    font-size: 1.3rem;
+    color: #333;
+    margin: 0 0 0.2rem 0;
+    font-weight: bold;
+}
+
+.papel {
+    font-size: 0.9rem;
+    color: #4ECDC4;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

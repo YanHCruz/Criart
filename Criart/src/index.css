@@ -145,15 +145,14 @@ input:not(:placeholder-shown) ~ .reset {
 
 .profile-icon svg {
     cursor: pointer;
-    background-color: white;
+    background-color: #ffffff;
+    color: #111;
     border-radius: 200px;
 }
 
 /* -Hero Section */
 .hero-section {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
+    position: center;
     z-index: 1;
     min-height: calc(100vh - 100px); /* Altura da tela, para ela calcular e ficar na tela inteira */
     display: flex;
@@ -297,7 +296,7 @@ input:not(:placeholder-shown) ~ .reset {
 
 /* --- MODAL (Fundo escuro) --- */
 .modal-overlay {
-    display: none; /* Começa escondido */
+    display: flex; /* Começa escondido */
     position: fixed;
     top: 0;
     left: 0;
@@ -476,6 +475,14 @@ input:not(:placeholder-shown) ~ .reset {
 }
 .icon-btn:hover { background-color: #f0f0f0; }
 
+.erro-cpf {
+    display: block;
+    color: #FF6B6B; /* Aquele seu vermelho/salmão lúdico */
+    font-size: 0.8rem;
+    margin-top: 5px;
+    text-align: left;
+    padding-left: 10px;
+}
 
 /* Responsividade */
 
@@ -605,7 +612,7 @@ input:not(:placeholder-shown) ~ .reset {
 }
 
 .footer-col h3 {
-    font-family: 'Permanent Marker', cursive;
+    font-family: 'segoe ui', sans-serif;
     color: #4682b4;
     margin-bottom: 20px;
 }
@@ -699,6 +706,21 @@ input:not(:placeholder-shown) ~ .reset {
     text-decoration: none;
     display: inline-block;
 }
+
+/* Feedback */
+.feed-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.feed-form input, .feed-form textarea {
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    outline: none;
+}
+
 
 /* SAC */
 .sac-form {
