@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 // Se for preciso adicionar uma página ou jornal novo, basta adicionar o caminho da imagem no array abaixo.
 export function Jornal() {
