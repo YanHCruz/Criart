@@ -1,4 +1,14 @@
+import React from 'react';
+
 export function Sobre() {
+
+const rolarParaGaleria = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const elemento = document.getElementById('galeria');
+    if (elemento) {
+        elemento.scrollIntoView({ behavior : 'smooth' });
+    }
+};
   return (
     <section id="sobre-nos" className="sobre-section hidden-scroll">
        <div className="sobre-container">
@@ -26,7 +36,7 @@ export function Sobre() {
                 </div>
             </div>
 
-            <a href="#sobre-nos" className="btn-ver">Conheça a equipe</a>
+            <a href="#galeria" onClick={rolarParaGaleria} className="btn-ver">Conheça a equipe</a>
         </div>
 
  <div className="sobre-imagens">
@@ -40,4 +50,4 @@ export function Sobre() {
     </div>
     </section>
   );
-}
+}   
