@@ -10,15 +10,16 @@ interface EventoProps {
     altura: number;
 }
 
-// Teste de imagens (Como se tivesse vindo do Python)
 const fotosDosEventos = [
-    { img: 'https://images.unsplash.com/photo-1540317580384-e5d43616b9aa', titulo: 'Workshop de React', altura: 300 },
-    { img: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952', titulo: 'Palestra de Design', altura: 400 },
-    { img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45', titulo: 'Formatura 2025', altura: 250 },
-    { img: 'https://images.unsplash.com/photo-1552664730-d307ca884978', titulo: 'Reunião de Equipe', altura: 350 },
-    { img: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644', titulo: 'Hackathon Criart', altura: 200 },
-    { img: 'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7', titulo: 'Apresentação de Projetos', altura: 450 },
-    { img: '/img/turma-toda.jpg', titulo: 'Equipe toda', altura: 380 }, // Testado para quando for adicionar as fotos reais
+    { img: '/img/apresentação_lorax.jpeg', titulo: 'Oficina Cinematográfica', altura: 400 },
+    { img: '/img/exprosição_gestão.jpeg', titulo: 'Esprosição do time de Gestão', altura: 350 },
+    { img: '/img/Turma_naomy.jpeg', titulo: 'Equipe com a Naomy', altura: 150 },
+    { img: '/img/Dinamica_lorax.jpeg', titulo: 'Dinâmica da Oficina Cinematográfica', altura: 400 },
+    { img: '/img/exprosição_ti.jpeg', titulo: 'Esprosição do time de Ti', altura: 200 },
+    { img: '/img/Dinamica_exprosição.jpeg', titulo: 'Apresentação da Esprosição', altura: 450 },
+    { img: '/img/turma-toda.jpg', titulo: 'Equipe toda', altura: 380 }, 
+    { img: '/img/EquipeCompleta.jpeg', titulo: 'Equipe Completa Criart', altura: 450 }, 
+
 
 ];
 
@@ -27,7 +28,7 @@ export function Galeria() {
     const [FotoExpandida, setFotoExpandida] = useState<EventoProps | null>(null);
 
   return (
-    <Box sx={{ width: '100%', maxWidth: 1200, margin: '0 auto', padding: '40px 20px'}} id="eventos">
+    <Box sx={{ width: '100%', maxWidth: 1200, margin: '0 auto', padding: '40px 20px'}} id="galeria">
         <h2 className = 'titulo-secao'> Nossa Galeria de Eventos</h2>
         
         {/* Coluna para celular, tablets, pc e monitores */}
