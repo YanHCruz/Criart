@@ -8,7 +8,7 @@ const listaEventos = [
         titulo: 'Oficina cinematográfica',
         data: 'Realizado',
         descricao: 'Oficina cinematográfica sobre o filme Lorax, com atividades, conversa, e um resumo do filme para todos conseguirem entender',
-        imagem_url: '../public/img/Analise Lorax.png',
+        imagem_url: '../img/Analise Lorax.png',
         status: 'Realizado'
     },
     {
@@ -16,7 +16,7 @@ const listaEventos = [
         titulo: 'Próxima Aventura (Em Breve)',
         data: 'Data a definir',
         descricao: 'Nossa equipe já está preparando o próximo encontro cheio de cores e diversão. Fique de olho para garantir sua vaga!',
-        imagem_url: '../public/img/meme-teste.jpg',
+        imagem_url: '../img/meme-teste.jpg',
         status: 'Futuro'
     }
 ];

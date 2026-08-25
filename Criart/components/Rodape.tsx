@@ -94,7 +94,20 @@ export function Rodape() {
 
             </div>
             <div className="footer-bottom">
-                <p>© 2026 Criart - Espaço de arte e lazer. Todos os direitos reservados.</p>
+                <p>© 2026 Criart - Espaço de arte e lazer. Desenvolvido por {' '}
+                <a 
+                    href="https://github.com/YanHCruz"
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                    color: 'inherit', 
+                    textDecoration: 'none', 
+                    fontWeight: '600' 
+                }}
+                    onMouseOver={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                    onMouseOut={(e) => e.currentTarget.style.textDecoration = 'none'}
+                >Yan Cruz</a>
+                </p>
             </div>
         </footer>
     );

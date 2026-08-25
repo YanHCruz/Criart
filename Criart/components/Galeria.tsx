@@ -10,7 +10,6 @@ interface EventoProps {
     altura: number;
 }
 
-// Teste de imagens (Como se tivesse vindo do Python)
 const fotosDosEventos = [
     { img: 'https://images.unsplash.com/photo-1540317580384-e5d43616b9aa', titulo: 'Workshop de React', altura: 300 },
     { img: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952', titulo: 'Palestra de Design', altura: 400 },
