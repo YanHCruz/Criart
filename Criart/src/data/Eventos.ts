@@ -1,3 +1,5 @@
+// Data a definir / Futuro - Evento que ainda não foi realizado, mas está planejado para o futuro.
+// Realizado - Evento que já ocorreu no passado e foi concluído com sucesso.
 export interface Evento {
     id: number;
     titulo: string;
@@ -34,10 +36,18 @@ export const listaEventos: Evento[] = [
     },
     {
         id: 4,
-        titulo: 'Visista masp',
-        data: 'Data a definir',
+        titulo: 'Visita ao MASP',
+        data: '01/09/2026',
         descricao: 'Nossa equipe irá fazer uma visita ao MASP, com o objetivo de conhecer a história da arte e a importância do museu para a cultura brasileira. Durante a visita será feita uma competição de fotográfia com a equipe.',
         imagem_url: '/img/Evento_masp.png',
+        status: 'Realizado'
+    },
+    {
+        id: 5,
+        titulo: 'Aguardando o próximo evento',
+        data: 'Data a definir', 
+        descricao: 'Estamos preparando algo incrível para vocês! Fiquem atentos às nossas redes sociais para não perder nenhuma novidade.',
+        imagem_url: '/img/espera-evento.jpg',
         status: 'Futuro'
     }
 ];

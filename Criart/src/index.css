@@ -288,200 +288,14 @@ input:not(:placeholder-shown) ~ .reset {
 
 /* Ajuste para celulares (a onda fica um pouco mais alta) */
 @media (max-width: 768px) {
+    .wave-container {
+        line-height: 11;
+    }
+    
     .waves {
         height: 40px;
         min-height: 40px;
     }
-}
-
-/* --- MODAL (Fundo escuro) --- */
-.modal-overlay {
-    display: flex; /* Começa escondido */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo preto transparente */
-    backdrop-filter: blur(5px); /* Efeito de desfoque moderno no fundo */
-    z-index: 1000; /* Garante que fique em cima de tudo */
-    justify-content: center;
-    align-items: center;
-    animation: fadeIn 0.3s ease;
-}
-
-/* --- A CAIXA DE LOGIN --- */
-.modal-content {
-    background-color: rgb(255, 255, 255);
-    padding: 40px;
-    border-radius: 50px; 
-    width: 90%;
-    max-width: 400px; 
-    text-align: center;
-    position: relative;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    transition: all 0.4s ease-in-out;
-    overflow: hidden;
-}
-
-/* Classe utilitária para esconder elementos */
-.hidden {
-    display: none;
-}
-
-/* Estado de Saída (Quando o form está sumindo) */
-.fading-out {
-    animation: fadeOutScale 0.3s forwards;
-}
-
-/* Estado de Entrada (Quando o form está aparecendo - O "POP") */
-.fading-in {
-    animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Esse cubic-bezier faz o efeito de "mola" */
-}
-
-/* Keyframes: Define o movimento exato */
-@keyframes fadeOutScale {
-    from {
-        opacity: 1;
-        transform: scale(1);
-    }
-    to {
-        opacity: 0;
-        transform: scale(0.8); /* Diminui um pouco ao sumir */
-    }
-}
-
-@keyframes popIn {
-    from {
-        opacity: 0;
-        transform: scale(0.8) translateY(20px); /* Começa menor e um pouco pra baixo */
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-/* Botão Fechar (X) */
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #aaa;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-.close-btn:hover { color: #333; }
-
-/* Tipografia */
-.modal-title {
-    font-family: 'Permanent Marker', cursive; /* Sua fonte de destaque */
-    color: #4682B4; /* Azul escuro do seu tema */
-    font-size: 2rem;
-    margin-bottom: 5px;
-}
-
-.modal-subtitle {
-    font-family: 'Segoe UI', sans-serif;
-    color: #666;
-    margin-bottom: 30px;
-}
-
-/* Inputs (Campos de texto) */
-.input-group {
-    margin-bottom: 15px;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 12px 20px;
-    border-radius: 50px; /* Estilo pílula igual sua busca */
-    border: 1px solid #ddd;
-    background-color: #F0F8FF; /* Azulzinho muito claro */
-    outline: none;
-    font-size: 1rem;
-    transition: all 0.3s;
-}
-
-.input-group input:focus {
-    border-color: #60b3d3;
-    background-color: white;
-    box-shadow: 0 0 5px rgba(96, 179, 211, 0.3);
-}
-
-/* Link esqueceu senha */
-.forgot-pass {
-    width: 120px; /* alinhado para a esquerda */
-    display: block;
-    text-align: right;
-    font-size: 0.9rem;
-    color: #4682B4;
-    text-decoration: none;
-    margin-bottom: 20px;
-}
-
-/* Botão de Entrar (Baseado no seu .btn-ver) */
-.btn-login {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 50px;
-    background-color: #60b3d3;
-    color: white;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 2px 5px 10px rgba(50, 107, 130, 0.2);
-    transition: all 0.3s ease-in-out;
-}
-
-.btn-login:hover {
-    background-color: #326b82;
-    transform: scale(1.02);
-}
-
-/* Rodapé do form */
-.switch-form {
-    margin-top: 20px;
-    font-size: 0.9rem;
-}
-.switch-form a {
-    color: #FFA500; /* Laranja do seu tema */
-    font-weight: bold;
-    text-decoration: none;
-}
-
-/* Animação de entrada */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Ícones sociais (simples) */
-.social-login { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
-.social-login p { font-size: 0.8rem; color: #999; margin-bottom: 10px; }
-.social-icons { display: flex; justify-content: center; gap: 10px; }
-.icon-btn {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    border: 1px solid #ddd;
-    background: white;
-    cursor: pointer;
-    font-weight: bold;
-    color: #555;
-    transition: 0.3s;
-}
-.icon-btn:hover { background-color: #f0f0f0; }
-
-.erro-cpf {
-    display: block;
-    color: #FF6B6B; /* Aquele seu vermelho/salmão lúdico */
-    font-size: 0.8rem;
-    margin-top: 5px;
-    text-align: left;
-    padding-left: 10px;
 }
 
 /* Responsividade */
@@ -529,13 +343,18 @@ input:not(:placeholder-shown) ~ .reset {
     .hero-section {
         height: auto; /* Remove altura fixa para o conteúdo caber */
         min-height: 100vh; /* Garante que ocupe pelo menos a tela toda */
-        padding-bottom: 100px; /* Espaço extra embaixo para a onda não cobrir o conteúdo */
+        padding-bottom: 120px; /* Aumentado para a onda ter espaço livre */
+        
+        /* ADICIONADO APENAS AQUI: Ativa o z-index no mobile para a onda subir */
+        position: relative; 
+        z-index: 1; 
     }
 
     .container-hero {
         flex-direction: column; /* Texto em cima, Imagem embaixo */
         text-align: center; /* Centraliza o texto */
         margin-top: 20px;
+        gap: 40px; /* Separa o texto da imagem */
     }
 
     /* Ajustes no texto */
@@ -550,26 +369,28 @@ input:not(:placeholder-shown) ~ .reset {
 
     .hero-text p {
         font-size: 1rem;
-        padding: 0 10px; /* Margem interna para não colar na borda da tela */
+        padding: 0 10px;
     }
 
-    /* Ajustes no Botão */
     .btn-ver {
         width: 100%; /* Botão ocupa largura total ou... */
         max-width: 250px; /* ...máximo de 250px */
     }
 
+    .hero-image img {
+        width: 100%;
+        max-width: 100%;
+    }
+
     /* Ondas */
-    /* Ajusta a altura da onda para não ocupar metade da tela do celular */
     .waves {
         height: 60px;
         min-height: 60px;
     }
-    
-    /* Modal de login */
-    .modal-content {
-        padding: 30px 20px; /* Menos padding interno */
-        width: 95%; /* Ocupa quase toda a tela */
+  
+    .sobre-section {
+        margin-top: -30px; 
+        padding-top: 60px;
     }
 }
 

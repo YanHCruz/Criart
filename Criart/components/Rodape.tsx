@@ -152,7 +152,7 @@ export function Rodape() {
                   textTransform: "uppercase",
                 }}
               >
-                Breve
+                Construção
               </span>
             </div>
 
@@ -166,7 +166,7 @@ export function Rodape() {
                   marginBottom: "4px",
                 }}
               >
-                Visita MASP
+                Aguarde o próximo evento...
               </strong>
               <span
                 style={{
@@ -176,7 +176,7 @@ export function Rodape() {
                   display: "block",
                 }}
               >
-                Fique de olho nos nossos próximos eventos.
+                {/* Aqui será adicionado um breve resumo do próximo evento (temporário até criar uma váriavel que guarda via ID os eventos) */}
               </span>
             </div>
           </div>
