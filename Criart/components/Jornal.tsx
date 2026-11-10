@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
-// Se for preciso adicionar uma página ou jornal novo, basta adicionar o caminho da imagem no array abaixo.
+// Se for preciso adicionar uma página ou jornal novo, basta adicionar o caminho da imagem no array abaixo (terá printar as páginas do jornal e salvar na pasta Public/img).
+// Outras páginas dos jornais estão salvas na pasta, caso seja preciso, junto ao PDF do jornal, que está na pasta Public/Jornal.
 export function Jornal() {
     const paginas = [
-        "/img/Jornal1_vol2.png",
-        "/img/Jornal2_vol2.png"
+        "/img/Jornal1.VOL.3.png",
+        "/img/Jornal2.VOL.3.png"
     ];
 
     const [paginaAtual, setPaginaAtual] = useState(0);
@@ -41,7 +42,8 @@ export function Jornal() {
                     <span style={{ fontWeight: 'bold', color: '#333' }}>
                         Página {paginaAtual + 1} de {paginas.length}
                     </span>
-                    <a href="/Jornal/Jornal VOL.2.pdf" download style={{ color: '#FFA500', textDecoration: 'none', fontWeight: 'bold', fontSize: '14px' }}>
+                    {/* Alterar o caminho do PDF, para o botão de download */}
+                    <a href="/Jornal/Jornal VOL.3.pdf" download style={{ color: '#FFA500', textDecoration: 'none', fontWeight: 'bold', fontSize: '14px' }}>
                         Baixar PDF
                     </a>
                 </div>
